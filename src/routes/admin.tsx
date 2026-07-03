@@ -30,6 +30,7 @@ type Row = {
   id: string;
   full_name: string;
   company: string;
+  class_code: string;
   role: string;
   whatsapp: string;
   email: string | null;
@@ -52,6 +53,7 @@ function AdminPage() {
   const [rows, setRows] = useState<Row[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [companyFilter, setCompanyFilter] = useState("");
+  const [classFilter, setClassFilter] = useState("");
   const fetchRows = useServerFn(getSurveyResponses);
 
   async function login(e: React.FormEvent) {
@@ -59,7 +61,7 @@ function AdminPage() {
     setLoading(true);
     try {
       const res = await fetchRows({ data: { password } });
-      setRows(res.rows as Row[]);
+      setRows((res.rows ?? []) as Row[]);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Erro ao entrar.";
       toast.error(msg);
@@ -101,23 +103,45 @@ function AdminPage() {
     );
   }
 
-  return <Dashboard rows={rows} companyFilter={companyFilter} setCompanyFilter={setCompanyFilter} />;
+  return (
+    <Dashboard
+      rows={rows}
+      companyFilter={companyFilter}
+      setCompanyFilter={setCompanyFilter}
+      classFilter={classFilter}
+      setClassFilter={setClassFilter}
+    />
+  );
 }
 
 function Dashboard({
   rows,
   companyFilter,
   setCompanyFilter,
+  classFilter,
+  setClassFilter,
 }: {
   rows: Row[];
   companyFilter: string;
   setCompanyFilter: (v: string) => void;
+  classFilter: string;
+  setClassFilter: (v: string) => void;
 }) {
+  const classOptions = useMemo(() => {
+    const set = new Set<string>();
+    for (const r of rows) if (r.class_code) set.add(r.class_code);
+    return Array.from(set).sort();
+  }, [rows]);
+
   const filtered = useMemo(() => {
     const q = companyFilter.trim().toLowerCase();
-    if (!q) return rows;
-    return rows.filter((r) => r.company.toLowerCase().includes(q));
-  }, [rows, companyFilter]);
+    const c = classFilter.trim();
+    return rows.filter((r) => {
+      if (c && r.class_code !== c) return false;
+      if (q && !r.company.toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }, [rows, companyFilter, classFilter]);
 
   const total = filtered.length;
   const avgScore =
@@ -147,6 +171,16 @@ function Dashboard({
         )
       : 0;
 
+  const perClass = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const r of filtered) {
+      map.set(r.class_code, (map.get(r.class_code) ?? 0) + 1);
+    }
+    return Array.from(map, ([code, count]) => ({ code, count })).sort(
+      (a, b) => b.count - a.count,
+    );
+  }, [filtered]);
+
   const scoreDist = useMemo(() => {
     const buckets = Array.from({ length: 11 }, (_, i) => ({ score: String(i), count: 0 }));
     for (const r of filtered) buckets[r.initial_confidence_score].count++;
@@ -165,6 +199,7 @@ function Dashboard({
     const headers = [
       "id",
       "created_at",
+      "class_code",
       "full_name",
       "company",
       "role",
@@ -187,7 +222,8 @@ function Dashboard({
     };
     const lines = [headers.join(",")];
     for (const r of filtered) {
-      lines.push(headers.map((h) => escape((r as unknown as Record<string, unknown>)[h])).join(","));
+      const record = r as unknown as Record<string, unknown>;
+      lines.push(headers.map((h) => escape(record[h])).join(","));
     }
     const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
@@ -202,7 +238,7 @@ function Dashboard({
     <PageShell>
       <Toaster richColors position="top-center" />
       <div className="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6">
-        <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <header className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
               Painel HPT
@@ -211,16 +247,28 @@ function Dashboard({
               Diagnóstico Inicial da Turma · Pesquisa Pré-Curso
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid w-full gap-2 sm:w-auto sm:grid-cols-[auto_auto_auto]">
+            <select
+              value={classFilter}
+              onChange={(e) => setClassFilter(e.target.value)}
+              className="w-full rounded-lg border border-input bg-surface px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 sm:w-44"
+            >
+              <option value="">Todas as turmas</option>
+              {classOptions.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
             <input
               value={companyFilter}
               onChange={(e) => setCompanyFilter(e.target.value)}
-              placeholder="Filtrar por empresa/instituição"
-              className="w-full min-w-64 rounded-lg border border-input bg-surface px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 sm:w-72"
+              placeholder="Filtrar por empresa"
+              className="w-full rounded-lg border border-input bg-surface px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 sm:w-60"
             />
             <button
               onClick={exportCSV}
-              className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary-deep"
+              className="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary-deep"
             >
               Exportar CSV
             </button>
@@ -234,6 +282,34 @@ function Dashboard({
           <Kpi label="Já atendeu pessoa surda" value={`${pctAttendedDeaf}%`} />
           <Kpi label="Interesse em cursos futuros" value={`${pctFutureInterest}%`} />
         </section>
+
+        <Card title="Respostas por turma">
+          {perClass.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Sem respostas ainda.</p>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {perClass.map((c) => (
+                <button
+                  key={c.code}
+                  onClick={() => setClassFilter(classFilter === c.code ? "" : c.code)}
+                  className={`rounded-xl border px-3 py-2 text-left transition ${
+                    classFilter === c.code
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border bg-surface-muted text-foreground hover:border-primary/40"
+                  }`}
+                >
+                  <div className="text-xs font-medium uppercase tracking-wide opacity-80">
+                    Turma
+                  </div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-base font-bold">{c.code}</span>
+                    <span className="text-sm opacity-80">· {c.count}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </Card>
 
         <section className="grid gap-4 lg:grid-cols-2">
           <Card title="Distribuição da nota de segurança inicial (0–10)">
@@ -294,11 +370,12 @@ function Dashboard({
         </section>
 
         <Card title={`Respostas (${filtered.length})`}>
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[900px] border-collapse text-left text-sm">
+          <div className="-mx-4 overflow-x-auto sm:mx-0">
+            <table className="w-full min-w-[1000px] border-collapse text-left text-sm">
               <thead className="bg-surface-muted text-xs uppercase tracking-wide text-muted-foreground">
                 <tr>
                   <Th>Data</Th>
+                  <Th>Turma</Th>
                   <Th>Nome</Th>
                   <Th>Empresa</Th>
                   <Th>Cargo</Th>
@@ -314,6 +391,7 @@ function Dashboard({
                 {filtered.map((r) => (
                   <tr key={r.id} className="border-t border-border align-top">
                     <Td>{new Date(r.created_at).toLocaleDateString("pt-BR")}</Td>
+                    <Td className="font-semibold text-primary">{r.class_code}</Td>
                     <Td>{r.full_name}</Td>
                     <Td>{r.company}</Td>
                     <Td>{r.role}</Td>
@@ -329,7 +407,7 @@ function Dashboard({
                 ))}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={10} className="py-6 text-center text-sm text-muted-foreground">
+                    <td colSpan={11} className="py-6 text-center text-sm text-muted-foreground">
                       Nenhuma resposta encontrada.
                     </td>
                   </tr>

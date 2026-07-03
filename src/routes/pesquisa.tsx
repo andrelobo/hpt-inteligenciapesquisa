@@ -45,6 +45,7 @@ const FUTURE_INTEREST = ["Sim", "Talvez", "Não no momento"];
 type FormState = {
   full_name: string;
   company: string;
+  class_code: string;
   role: string;
   whatsapp: string;
   email: string;
@@ -62,6 +63,7 @@ type FormState = {
 const initial: FormState = {
   full_name: "",
   company: "",
+  class_code: "",
   role: "",
   whatsapp: "",
   email: "",
@@ -78,6 +80,7 @@ const initial: FormState = {
 
 function PesquisaPage() {
   const [form, setForm] = useState<FormState>(initial);
+  const [honeypot, setHoneypot] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -101,10 +104,19 @@ function PesquisaPage() {
       return;
     }
     setSubmitting(true);
+    // Honeypot anti-spam: se preenchido, silenciosamente simula sucesso.
+    if (honeypot.trim() !== "") {
+      setTimeout(() => {
+        setSubmitting(false);
+        navigate({ to: "/obrigado" });
+      }, 400);
+      return;
+    }
     const { error } = await supabase
       .from("student_pre_course_survey_responses")
       .insert({
         ...form,
+        class_code: form.class_code.trim().toUpperCase(),
         email: form.email.trim() || null,
       });
     setSubmitting(false);
@@ -157,6 +169,30 @@ function PesquisaPage() {
                   required
                 />
               </Field>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2">
+              <Field label="Código da turma" required>
+                <Input
+                  value={form.class_code}
+                  onChange={(v) => update("class_code", v.toUpperCase())}
+                  placeholder="Ex: HPT2026"
+                  required
+                />
+              </Field>
+              <div aria-hidden="true" className="hidden">
+                <label>
+                  Website
+                  <input
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    name="website"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
+                </label>
+              </div>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2">
@@ -277,20 +313,21 @@ function PesquisaPage() {
                 type="checkbox"
                 checked={form.consent}
                 onChange={(e) => update("consent", e.target.checked)}
-                className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
+                className="mt-0.5 h-5 w-5 shrink-0 accent-primary"
                 required
               />
               <span className="text-foreground">
-                Autorizo o uso das minhas respostas de forma agrupada e sem identificação
-                individual para fins de melhoria pedagógica, relatórios e planejamento de
-                novas turmas.
+                Autorizo o uso das minhas respostas de forma agrupada e sem
+                identificação individual para fins de melhoria pedagógica,
+                relatórios internos e planejamento de novas turmas da Heberton
+                Pinheiro Treinamentos.
               </span>
             </label>
 
             <button
               type="submit"
               disabled={submitting}
-              className="w-full rounded-xl bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground shadow-sm transition hover:bg-primary-deep disabled:opacity-60"
+              className="w-full rounded-xl bg-primary px-6 py-4 text-base font-semibold text-primary-foreground shadow-sm transition hover:bg-primary-deep disabled:opacity-60 min-h-[52px]"
             >
               {submitting ? "Enviando..." : "Enviar Diagnóstico Inicial"}
             </button>
