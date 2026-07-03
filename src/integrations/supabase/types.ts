@@ -17,6 +17,7 @@ export type Database = {
       student_pre_course_survey_responses: {
         Row: {
           biggest_difficulty: string
+          class_code: string
           company: string
           consent: boolean
           created_at: string
@@ -35,6 +36,7 @@ export type Database = {
         }
         Insert: {
           biggest_difficulty: string
+          class_code?: string
           company: string
           consent?: boolean
           created_at?: string
@@ -53,6 +55,7 @@ export type Database = {
         }
         Update: {
           biggest_difficulty?: string
+          class_code?: string
           company?: string
           consent?: boolean
           created_at?: string

@@ -1,0 +1,1 @@
+ALTER TABLE public.student_pre_course_survey_responses ADD COLUMN IF NOT EXISTS class_code TEXT NOT NULL DEFAULT 'HPT2026'; CREATE INDEX IF NOT EXISTS idx_survey_class_code ON public.student_pre_course_survey_responses(class_code);
