@@ -30,6 +30,7 @@ type Row = {
   id: string;
   full_name: string;
   company: string;
+  class_code: string;
   role: string;
   whatsapp: string;
   email: string | null;
