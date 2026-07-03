@@ -74,8 +74,49 @@ function Index() {
               </div>
             ))}
           </div>
+
+          <div className="mt-12">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Próximas pesquisas (em breve)
+            </h2>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              <Link
+                to="/pesquisa-pos-curso"
+                className="group flex items-start justify-between gap-4 rounded-2xl border border-dashed border-border bg-surface p-5 transition hover:border-primary hover:bg-primary/5"
+              >
+                <div>
+                  <div className="text-sm font-semibold text-foreground">
+                    Pesquisa Pós-Curso
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Avaliação da experiência do aluno ao final do treinamento.
+                  </p>
+                </div>
+                <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  Em breve
+                </span>
+              </Link>
+              <Link
+                to="/pesquisa-institucional"
+                className="group flex items-start justify-between gap-4 rounded-2xl border border-dashed border-border bg-surface p-5 transition hover:border-primary hover:bg-primary/5"
+              >
+                <div>
+                  <div className="text-sm font-semibold text-foreground">
+                    Pesquisa Institucional
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Respondida pela empresa contratante após o curso.
+                  </p>
+                </div>
+                <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  Em breve
+                </span>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </PageShell>
+
   );
 }
