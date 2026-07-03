@@ -45,6 +45,7 @@ const FUTURE_INTEREST = ["Sim", "Talvez", "Não no momento"];
 type FormState = {
   full_name: string;
   company: string;
+  class_code: string;
   role: string;
   whatsapp: string;
   email: string;
@@ -62,6 +63,7 @@ type FormState = {
 const initial: FormState = {
   full_name: "",
   company: "",
+  class_code: "",
   role: "",
   whatsapp: "",
   email: "",
