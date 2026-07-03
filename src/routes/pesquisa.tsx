@@ -313,20 +313,21 @@ function PesquisaPage() {
                 type="checkbox"
                 checked={form.consent}
                 onChange={(e) => update("consent", e.target.checked)}
-                className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
+                className="mt-0.5 h-5 w-5 shrink-0 accent-primary"
                 required
               />
               <span className="text-foreground">
-                Autorizo o uso das minhas respostas de forma agrupada e sem identificação
-                individual para fins de melhoria pedagógica, relatórios e planejamento de
-                novas turmas.
+                Autorizo o uso das minhas respostas de forma agrupada e sem
+                identificação individual para fins de melhoria pedagógica,
+                relatórios internos e planejamento de novas turmas da Heberton
+                Pinheiro Treinamentos.
               </span>
             </label>
 
             <button
               type="submit"
               disabled={submitting}
-              className="w-full rounded-xl bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground shadow-sm transition hover:bg-primary-deep disabled:opacity-60"
+              className="w-full rounded-xl bg-primary px-6 py-4 text-base font-semibold text-primary-foreground shadow-sm transition hover:bg-primary-deep disabled:opacity-60 min-h-[52px]"
             >
               {submitting ? "Enviando..." : "Enviar Diagnóstico Inicial"}
             </button>
