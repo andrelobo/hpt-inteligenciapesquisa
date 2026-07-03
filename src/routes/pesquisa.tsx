@@ -180,19 +180,16 @@ function PesquisaPage() {
                   required
                 />
               </Field>
-              <div aria-hidden="true" className="hidden">
-                <label>
-                  Website
-                  <input
-                    type="text"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    name="website"
-                    value={honeypot}
-                    onChange={(e) => setHoneypot(e.target.value)}
-                  />
-                </label>
-              </div>
+              <input
+                type="text"
+                name="website"
+                className="hidden"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2">
