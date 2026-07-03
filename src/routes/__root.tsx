@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Coleta inteligente de dados pedagógicos para entender o perfil dos alunos, medir expectativas e melhorar cada nova turma da Heberton Pinheiro Treinamentos.",
       },
       { name: "author", content: "Heberton Pinheiro Treinamentos" },
-      { property: "og:title", content: "Sistema de Pesquisas HPT" },
+      { property: "og:title", content: "Sistema de Pesquisas HPT | Inteligência Pedagógica" },
       {
         property: "og:description",
         content:
@@ -96,6 +96,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "preconnect",
         href: "https://fonts.googleapis.com",
       },
+      { name: "twitter:title", content: "Sistema de Pesquisas HPT | Inteligência Pedagógica" },
+      { name: "description", content: "HPT Pulse is a pedagogical intelligence system for collecting pre-course student data." },
+      { property: "og:description", content: "HPT Pulse is a pedagogical intelligence system for collecting pre-course student data." },
+      { name: "twitter:description", content: "HPT Pulse is a pedagogical intelligence system for collecting pre-course student data." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/cafabf3b-b87a-45ea-9729-e7cd30e5c05b/id-preview-fb2be97e--88042cf3-10ae-4a97-91f7-cb683c835747.lovable.app-1783102801826.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/cafabf3b-b87a-45ea-9729-e7cd30e5c05b/id-preview-fb2be97e--88042cf3-10ae-4a97-91f7-cb683c835747.lovable.app-1783102801826.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
