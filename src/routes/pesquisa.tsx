@@ -172,6 +172,30 @@ function PesquisaPage() {
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2">
+              <Field label="Código da turma" required>
+                <Input
+                  value={form.class_code}
+                  onChange={(v) => update("class_code", v.toUpperCase())}
+                  placeholder="Ex: HPT2026"
+                  required
+                />
+              </Field>
+              <div aria-hidden="true" className="hidden">
+                <label>
+                  Website
+                  <input
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    name="website"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2">
               <Field label="WhatsApp" required>
                 <Input
                   value={form.whatsapp}
