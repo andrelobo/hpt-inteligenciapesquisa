@@ -80,6 +80,7 @@ const initial: FormState = {
 
 function PesquisaPage() {
   const [form, setForm] = useState<FormState>(initial);
+  const [honeypot, setHoneypot] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -103,10 +104,19 @@ function PesquisaPage() {
       return;
     }
     setSubmitting(true);
+    // Honeypot anti-spam: se preenchido, silenciosamente simula sucesso.
+    if (honeypot.trim() !== "") {
+      setTimeout(() => {
+        setSubmitting(false);
+        navigate({ to: "/obrigado" });
+      }, 400);
+      return;
+    }
     const { error } = await supabase
       .from("student_pre_course_survey_responses")
       .insert({
         ...form,
+        class_code: form.class_code.trim().toUpperCase(),
         email: form.email.trim() || null,
       });
     setSubmitting(false);
