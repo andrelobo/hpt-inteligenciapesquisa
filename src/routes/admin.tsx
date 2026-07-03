@@ -53,6 +53,7 @@ function AdminPage() {
   const [rows, setRows] = useState<Row[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [companyFilter, setCompanyFilter] = useState("");
+  const [classFilter, setClassFilter] = useState("");
   const fetchRows = useServerFn(getSurveyResponses);
 
   async function login(e: React.FormEvent) {
@@ -60,7 +61,7 @@ function AdminPage() {
     setLoading(true);
     try {
       const res = await fetchRows({ data: { password } });
-      setRows(res.rows as Row[]);
+      setRows((res.rows ?? []) as Row[]);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Erro ao entrar.";
       toast.error(msg);
