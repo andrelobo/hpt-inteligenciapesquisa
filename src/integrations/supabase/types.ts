@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      student_pre_course_survey_responses: {
+        Row: {
+          biggest_difficulty: string
+          company: string
+          consent: boolean
+          created_at: string
+          email: string | null
+          full_name: string
+          future_courses_interest: string
+          has_attended_deaf_person: string
+          id: string
+          initial_confidence_score: number
+          learning_expectation: string
+          previous_libras_contact: string
+          role: string
+          usage_context: string
+          usefulness_expectation: string
+          whatsapp: string
+        }
+        Insert: {
+          biggest_difficulty: string
+          company: string
+          consent?: boolean
+          created_at?: string
+          email?: string | null
+          full_name: string
+          future_courses_interest: string
+          has_attended_deaf_person: string
+          id?: string
+          initial_confidence_score: number
+          learning_expectation: string
+          previous_libras_contact: string
+          role: string
+          usage_context: string
+          usefulness_expectation: string
+          whatsapp: string
+        }
+        Update: {
+          biggest_difficulty?: string
+          company?: string
+          consent?: boolean
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          future_courses_interest?: string
+          has_attended_deaf_person?: string
+          id?: string
+          initial_confidence_score?: number
+          learning_expectation?: string
+          previous_libras_contact?: string
+          role?: string
+          usage_context?: string
+          usefulness_expectation?: string
+          whatsapp?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
