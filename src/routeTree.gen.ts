@@ -9,11 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PesquisaPosCursoRouteImport } from './routes/pesquisa-pos-curso'
+import { Route as PesquisaInstitucionalRouteImport } from './routes/pesquisa-institucional'
 import { Route as PesquisaRouteImport } from './routes/pesquisa'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PesquisaPosCursoRoute = PesquisaPosCursoRouteImport.update({
+  id: '/pesquisa-pos-curso',
+  path: '/pesquisa-pos-curso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PesquisaInstitucionalRoute = PesquisaInstitucionalRouteImport.update({
+  id: '/pesquisa-institucional',
+  path: '/pesquisa-institucional',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PesquisaRoute = PesquisaRouteImport.update({
   id: '/pesquisa',
   path: '/pesquisa',
@@ -40,12 +52,16 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/obrigado': typeof ObrigadoRoute
   '/pesquisa': typeof PesquisaRoute
+  '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
+  '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/obrigado': typeof ObrigadoRoute
   '/pesquisa': typeof PesquisaRoute
+  '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
+  '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +69,34 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/obrigado': typeof ObrigadoRoute
   '/pesquisa': typeof PesquisaRoute
+  '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
+  '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/obrigado' | '/pesquisa'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/obrigado'
+    | '/pesquisa'
+    | '/pesquisa-institucional'
+    | '/pesquisa-pos-curso'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/obrigado' | '/pesquisa'
-  id: '__root__' | '/' | '/admin' | '/obrigado' | '/pesquisa'
+  to:
+    | '/'
+    | '/admin'
+    | '/obrigado'
+    | '/pesquisa'
+    | '/pesquisa-institucional'
+    | '/pesquisa-pos-curso'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/obrigado'
+    | '/pesquisa'
+    | '/pesquisa-institucional'
+    | '/pesquisa-pos-curso'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +104,26 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PesquisaRoute: typeof PesquisaRoute
+  PesquisaInstitucionalRoute: typeof PesquisaInstitucionalRoute
+  PesquisaPosCursoRoute: typeof PesquisaPosCursoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pesquisa-pos-curso': {
+      id: '/pesquisa-pos-curso'
+      path: '/pesquisa-pos-curso'
+      fullPath: '/pesquisa-pos-curso'
+      preLoaderRoute: typeof PesquisaPosCursoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pesquisa-institucional': {
+      id: '/pesquisa-institucional'
+      path: '/pesquisa-institucional'
+      fullPath: '/pesquisa-institucional'
+      preLoaderRoute: typeof PesquisaInstitucionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pesquisa': {
       id: '/pesquisa'
       path: '/pesquisa'
@@ -107,6 +160,8 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   ObrigadoRoute: ObrigadoRoute,
   PesquisaRoute: PesquisaRoute,
+  PesquisaInstitucionalRoute: PesquisaInstitucionalRoute,
+  PesquisaPosCursoRoute: PesquisaPosCursoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
