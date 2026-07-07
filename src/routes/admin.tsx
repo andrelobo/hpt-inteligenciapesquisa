@@ -34,6 +34,8 @@ type Row = {
   role: string;
   whatsapp: string;
   email: string | null;
+  instagram: string | null;
+  facebook: string | null;
   previous_libras_contact: string;
   has_attended_deaf_person: string;
   initial_confidence_score: number;
