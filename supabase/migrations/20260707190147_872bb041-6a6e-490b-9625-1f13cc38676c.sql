@@ -1,0 +1,1 @@
+REVOKE ALL ON FUNCTION public.check_pre_course_unique_response() FROM PUBLIC;
