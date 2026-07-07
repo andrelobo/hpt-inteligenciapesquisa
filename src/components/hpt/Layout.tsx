@@ -9,15 +9,15 @@ export function HptHeader() {
         <Link to="/" className="flex min-w-0 items-center gap-3">
           <img
             src={hptLogo.url}
-            alt="Heberton Pinheiro Treinamentos"
+            alt="Heberton Pinheiro Consultoria e Treinamento"
             className="h-10 w-10 shrink-0 rounded-md bg-primary-deep object-contain p-1"
           />
           <div className="min-w-0 leading-tight">
             <div className="truncate text-sm font-semibold tracking-wide sm:text-base">
-              Sistema de Pesquisas HPT
+              HPCT
             </div>
             <div className="truncate text-[11px] font-medium text-primary-foreground/70 sm:text-xs">
-              Heberton Pinheiro Treinamentos
+              Heberton Pinheiro Consultoria e Treinamento
             </div>
           </div>
         </Link>
