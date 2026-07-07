@@ -385,6 +385,8 @@ function Dashboard({
                   <Th>Cargo</Th>
                   <Th>WhatsApp</Th>
                   <Th>E-mail</Th>
+                  <Th>Instagram</Th>
+                  <Th>Facebook</Th>
                   <Th>Contato Libras</Th>
                   <Th>Atendeu surdo</Th>
                   <Th>Segurança</Th>
