@@ -122,6 +122,8 @@ function PesquisaPage() {
         ...form,
         class_code: form.class_code.trim().toUpperCase(),
         email: form.email.trim() || null,
+        instagram: form.instagram.trim() || null,
+        facebook: form.facebook.trim() || null,
       });
     setSubmitting(false);
     if (error) {
