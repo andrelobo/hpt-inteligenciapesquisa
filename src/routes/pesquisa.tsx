@@ -49,6 +49,8 @@ type FormState = {
   role: string;
   whatsapp: string;
   email: string;
+  instagram: string;
+  facebook: string;
   previous_libras_contact: string;
   has_attended_deaf_person: string;
   initial_confidence_score: number;
@@ -67,6 +69,8 @@ const initial: FormState = {
   role: "",
   whatsapp: "",
   email: "",
+  instagram: "",
+  facebook: "",
   previous_libras_contact: "",
   has_attended_deaf_person: "",
   initial_confidence_score: 5,
