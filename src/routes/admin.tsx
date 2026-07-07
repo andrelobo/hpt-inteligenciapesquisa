@@ -375,7 +375,7 @@ function Dashboard({
 
         <Card title={`Respostas (${filtered.length})`}>
           <div className="-mx-4 overflow-x-auto sm:mx-0">
-            <table className="w-full min-w-[1600px] border-collapse text-left text-sm">
+            <table className="w-full min-w-[1800px] border-collapse text-left text-sm">
               <thead className="bg-surface-muted text-xs uppercase tracking-wide text-muted-foreground">
                 <tr>
                   <Th>Data</Th>
