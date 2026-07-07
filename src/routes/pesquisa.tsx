@@ -63,7 +63,7 @@ type FormState = {
 const initial: FormState = {
   full_name: "",
   company: "",
-  class_code: "",
+  class_code: "HPCT01",
   role: "",
   whatsapp: "",
   email: "",
