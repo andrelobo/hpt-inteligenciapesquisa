@@ -226,6 +226,23 @@ function PesquisaPage() {
               </Field>
             </div>
 
+            <div className="grid gap-6 sm:grid-cols-2">
+              <Field label="Instagram (opcional)">
+                <Input
+                  value={form.instagram}
+                  onChange={(v) => update("instagram", v)}
+                  placeholder="@usuario"
+                />
+              </Field>
+              <Field label="Facebook (opcional)">
+                <Input
+                  value={form.facebook}
+                  onChange={(v) => update("facebook", v)}
+                  placeholder="facebook.com/usuario"
+                />
+              </Field>
+            </div>
+
             <Field label="Você já teve contato com Libras antes?" required>
               <Select
                 value={form.previous_libras_contact}
