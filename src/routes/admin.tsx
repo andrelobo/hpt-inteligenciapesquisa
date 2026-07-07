@@ -408,6 +408,8 @@ function Dashboard({
                     <Td>{r.role}</Td>
                     <Td>{r.whatsapp}</Td>
                     <Td>{r.email ?? "—"}</Td>
+                    <Td>{r.instagram ?? "—"}</Td>
+                    <Td>{r.facebook ?? "—"}</Td>
                     <Td>{r.previous_libras_contact}</Td>
                     <Td>{r.has_attended_deaf_person}</Td>
                     <Td className="text-center font-semibold text-primary">
@@ -423,7 +425,7 @@ function Dashboard({
                 ))}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={16} className="py-6 text-center text-sm text-muted-foreground">
+                    <td colSpan={18} className="py-6 text-center text-sm text-muted-foreground">
                       Nenhuma resposta encontrada.
                     </td>
                   </tr>
