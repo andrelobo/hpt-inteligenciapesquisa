@@ -62,7 +62,7 @@ type FormState = {
 
 const initial: FormState = {
   full_name: "",
-  company: "",
+  company: "IMais Intlink",
   class_code: "HPCT01",
   role: "",
   whatsapp: "",
@@ -156,10 +156,13 @@ function PesquisaPage() {
 
             <div className="grid gap-6 sm:grid-cols-2">
               <Field label="Empresa ou instituição" required>
-                <Input
+                <input
+                  type="text"
                   value={form.company}
-                  onChange={(v) => update("company", v)}
-                  required
+                  readOnly
+                  aria-readonly="true"
+                  tabIndex={-1}
+                  className="w-full cursor-not-allowed rounded-lg border border-input bg-surface-muted px-3 py-2.5 text-sm font-semibold text-foreground outline-none"
                 />
               </Field>
               <Field label="Cargo ou função" required>
