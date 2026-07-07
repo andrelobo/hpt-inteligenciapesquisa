@@ -49,6 +49,8 @@ type FormState = {
   role: string;
   whatsapp: string;
   email: string;
+  instagram: string;
+  facebook: string;
   previous_libras_contact: string;
   has_attended_deaf_person: string;
   initial_confidence_score: number;
@@ -67,6 +69,8 @@ const initial: FormState = {
   role: "",
   whatsapp: "",
   email: "",
+  instagram: "",
+  facebook: "",
   previous_libras_contact: "",
   has_attended_deaf_person: "",
   initial_confidence_score: 5,
@@ -118,6 +122,8 @@ function PesquisaPage() {
         ...form,
         class_code: form.class_code.trim().toUpperCase(),
         email: form.email.trim() || null,
+        instagram: form.instagram.trim() || null,
+        facebook: form.facebook.trim() || null,
       });
     setSubmitting(false);
     if (error) {
@@ -216,6 +222,23 @@ function PesquisaPage() {
                   value={form.email}
                   onChange={(v) => update("email", v)}
                   placeholder="seuemail@exemplo.com"
+                />
+              </Field>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2">
+              <Field label="Instagram (opcional)">
+                <Input
+                  value={form.instagram}
+                  onChange={(v) => update("instagram", v)}
+                  placeholder="@usuario"
+                />
+              </Field>
+              <Field label="Facebook (opcional)">
+                <Input
+                  value={form.facebook}
+                  onChange={(v) => update("facebook", v)}
+                  placeholder="facebook.com/usuario"
                 />
               </Field>
             </div>

@@ -34,6 +34,8 @@ type Row = {
   role: string;
   whatsapp: string;
   email: string | null;
+  instagram: string | null;
+  facebook: string | null;
   previous_libras_contact: string;
   has_attended_deaf_person: string;
   initial_confidence_score: number;
@@ -205,6 +207,8 @@ function Dashboard({
       "role",
       "whatsapp",
       "email",
+      "instagram",
+      "facebook",
       "previous_libras_contact",
       "has_attended_deaf_person",
       "initial_confidence_score",
@@ -371,7 +375,7 @@ function Dashboard({
 
         <Card title={`Respostas (${filtered.length})`}>
           <div className="-mx-4 overflow-x-auto sm:mx-0">
-            <table className="w-full min-w-[1600px] border-collapse text-left text-sm">
+            <table className="w-full min-w-[1800px] border-collapse text-left text-sm">
               <thead className="bg-surface-muted text-xs uppercase tracking-wide text-muted-foreground">
                 <tr>
                   <Th>Data</Th>
@@ -381,6 +385,8 @@ function Dashboard({
                   <Th>Cargo</Th>
                   <Th>WhatsApp</Th>
                   <Th>E-mail</Th>
+                  <Th>Instagram</Th>
+                  <Th>Facebook</Th>
                   <Th>Contato Libras</Th>
                   <Th>Atendeu surdo</Th>
                   <Th>Segurança</Th>
@@ -402,6 +408,8 @@ function Dashboard({
                     <Td>{r.role}</Td>
                     <Td>{r.whatsapp}</Td>
                     <Td>{r.email ?? "—"}</Td>
+                    <Td>{r.instagram ?? "—"}</Td>
+                    <Td>{r.facebook ?? "—"}</Td>
                     <Td>{r.previous_libras_contact}</Td>
                     <Td>{r.has_attended_deaf_person}</Td>
                     <Td className="text-center font-semibold text-primary">
@@ -417,7 +425,7 @@ function Dashboard({
                 ))}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={16} className="py-6 text-center text-sm text-muted-foreground">
+                    <td colSpan={18} className="py-6 text-center text-sm text-muted-foreground">
                       Nenhuma resposta encontrada.
                     </td>
                   </tr>
