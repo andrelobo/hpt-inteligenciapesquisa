@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.check_pre_course_unique_response() FROM anon, authenticated;
