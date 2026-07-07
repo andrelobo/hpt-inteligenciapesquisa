@@ -122,7 +122,11 @@ function PesquisaPage() {
     setSubmitting(false);
     if (error) {
       console.error(error);
-      toast.error("Não foi possível enviar. Tente novamente.");
+      if (error.code === "23505") {
+        toast.error("Este WhatsApp já respondeu a pesquisa para esta turma.");
+      } else {
+        toast.error("Não foi possível enviar. Tente novamente.");
+      }
       return;
     }
     navigate({ to: "/obrigado" });
