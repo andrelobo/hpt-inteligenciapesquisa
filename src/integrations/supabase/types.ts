@@ -22,11 +22,13 @@ export type Database = {
           consent: boolean
           created_at: string
           email: string | null
+          facebook: string | null
           full_name: string
           future_courses_interest: string
           has_attended_deaf_person: string
           id: string
           initial_confidence_score: number
+          instagram: string | null
           learning_expectation: string
           previous_libras_contact: string
           role: string
@@ -41,11 +43,13 @@ export type Database = {
           consent?: boolean
           created_at?: string
           email?: string | null
+          facebook?: string | null
           full_name: string
           future_courses_interest: string
           has_attended_deaf_person: string
           id?: string
           initial_confidence_score: number
+          instagram?: string | null
           learning_expectation: string
           previous_libras_contact: string
           role: string
@@ -60,11 +64,13 @@ export type Database = {
           consent?: boolean
           created_at?: string
           email?: string | null
+          facebook?: string | null
           full_name?: string
           future_courses_interest?: string
           has_attended_deaf_person?: string
           id?: string
           initial_confidence_score?: number
+          instagram?: string | null
           learning_expectation?: string
           previous_libras_contact?: string
           role?: string
