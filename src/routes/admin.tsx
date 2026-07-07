@@ -371,7 +371,7 @@ function Dashboard({
 
         <Card title={`Respostas (${filtered.length})`}>
           <div className="-mx-4 overflow-x-auto sm:mx-0">
-            <table className="w-full min-w-[1000px] border-collapse text-left text-sm">
+            <table className="w-full min-w-[1600px] border-collapse text-left text-sm">
               <thead className="bg-surface-muted text-xs uppercase tracking-wide text-muted-foreground">
                 <tr>
                   <Th>Data</Th>
@@ -380,34 +380,44 @@ function Dashboard({
                   <Th>Empresa</Th>
                   <Th>Cargo</Th>
                   <Th>WhatsApp</Th>
+                  <Th>E-mail</Th>
                   <Th>Contato Libras</Th>
                   <Th>Atendeu surdo</Th>
                   <Th>Segurança</Th>
                   <Th>Uso previsto</Th>
+                  <Th>Maior dificuldade</Th>
+                  <Th>Expectativa de aprendizado</Th>
+                  <Th>O que tornaria útil</Th>
                   <Th>Cursos futuros</Th>
+                  <Th>Consentimento</Th>
                 </tr>
               </thead>
               <tbody>
                 {filtered.map((r) => (
                   <tr key={r.id} className="border-t border-border align-top">
-                    <Td>{new Date(r.created_at).toLocaleDateString("pt-BR")}</Td>
+                    <Td>{new Date(r.created_at).toLocaleString("pt-BR")}</Td>
                     <Td className="font-semibold text-primary">{r.class_code}</Td>
                     <Td>{r.full_name}</Td>
                     <Td>{r.company}</Td>
                     <Td>{r.role}</Td>
                     <Td>{r.whatsapp}</Td>
+                    <Td>{r.email ?? "—"}</Td>
                     <Td>{r.previous_libras_contact}</Td>
                     <Td>{r.has_attended_deaf_person}</Td>
                     <Td className="text-center font-semibold text-primary">
                       {r.initial_confidence_score}
                     </Td>
                     <Td>{r.usage_context}</Td>
+                    <Td className="max-w-[240px] whitespace-pre-wrap">{r.biggest_difficulty}</Td>
+                    <Td className="max-w-[240px] whitespace-pre-wrap">{r.learning_expectation}</Td>
+                    <Td className="max-w-[240px] whitespace-pre-wrap">{r.usefulness_expectation}</Td>
                     <Td>{r.future_courses_interest}</Td>
+                    <Td>{r.consent ? "Sim" : "Não"}</Td>
                   </tr>
                 ))}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={11} className="py-6 text-center text-sm text-muted-foreground">
+                    <td colSpan={16} className="py-6 text-center text-sm text-muted-foreground">
                       Nenhuma resposta encontrada.
                     </td>
                   </tr>
