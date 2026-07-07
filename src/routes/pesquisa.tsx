@@ -63,7 +63,7 @@ type FormState = {
 const initial: FormState = {
   full_name: "",
   company: "",
-  class_code: "",
+  class_code: "HPCT01",
   role: "",
   whatsapp: "",
   email: "",
@@ -176,7 +176,7 @@ function PesquisaPage() {
                 <Input
                   value={form.class_code}
                   onChange={(v) => update("class_code", v.toUpperCase())}
-                  placeholder="Ex: HPT2026"
+                  placeholder="Ex: HPCT01"
                   required
                 />
               </Field>

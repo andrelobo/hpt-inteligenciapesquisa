@@ -27,7 +27,7 @@ function Index() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   to="/pesquisa"
-                  className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary-deep"
+                  className="relative inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/40 ring-2 ring-primary/50 transition hover:bg-primary-deep animate-pulse"
                 >
                   Responder Pesquisa Pré-Curso
                 </Link>
