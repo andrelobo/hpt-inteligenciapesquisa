@@ -173,11 +173,13 @@ function PesquisaPage() {
 
             <div className="grid gap-6 sm:grid-cols-2">
               <Field label="Código da turma" required>
-                <Input
+                <input
+                  type="text"
                   value={form.class_code}
-                  onChange={(v) => update("class_code", v.toUpperCase())}
-                  placeholder="Ex: HPCT01"
-                  required
+                  readOnly
+                  aria-readonly="true"
+                  tabIndex={-1}
+                  className="w-full cursor-not-allowed rounded-lg border border-input bg-surface-muted px-3 py-2.5 text-sm font-semibold text-foreground outline-none"
                 />
               </Field>
               <input
