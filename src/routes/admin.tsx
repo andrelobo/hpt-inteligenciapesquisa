@@ -207,6 +207,8 @@ function Dashboard({
       "role",
       "whatsapp",
       "email",
+      "instagram",
+      "facebook",
       "previous_libras_contact",
       "has_attended_deaf_person",
       "initial_confidence_score",
