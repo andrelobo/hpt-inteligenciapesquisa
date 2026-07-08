@@ -14,6 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
+      guest_evaluation_responses: {
+        Row: {
+          application_date: string
+          brought_communities_closer: string
+          class_code: string
+          consent: boolean
+          could_be_different: string | null
+          created_at: string
+          experience_rating: string
+          guest_name: string
+          id: string
+          instructor: string
+          message_to_students: string
+          methodology_rating: string
+          positive_point: string
+          respect_shown: string
+          students_interest: string
+          testimonial_consent: string
+          welcoming: string
+          workshop: string
+          would_participate_again: string
+        }
+        Insert: {
+          application_date?: string
+          brought_communities_closer: string
+          class_code?: string
+          consent?: boolean
+          could_be_different?: string | null
+          created_at?: string
+          experience_rating: string
+          guest_name?: string
+          id?: string
+          instructor?: string
+          message_to_students: string
+          methodology_rating: string
+          positive_point: string
+          respect_shown: string
+          students_interest: string
+          testimonial_consent: string
+          welcoming: string
+          workshop?: string
+          would_participate_again: string
+        }
+        Update: {
+          application_date?: string
+          brought_communities_closer?: string
+          class_code?: string
+          consent?: boolean
+          could_be_different?: string | null
+          created_at?: string
+          experience_rating?: string
+          guest_name?: string
+          id?: string
+          instructor?: string
+          message_to_students?: string
+          methodology_rating?: string
+          positive_point?: string
+          respect_shown?: string
+          students_interest?: string
+          testimonial_consent?: string
+          welcoming?: string
+          workshop?: string
+          would_participate_again?: string
+        }
+        Relationships: []
+      }
       student_post_class_responses: {
         Row: {
           application_date: string
