@@ -9,6 +9,20 @@ export const Route = createFileRoute("/")({
 const GUEST_PASSWORD = "inclusão2026hpt";
 
 function Index() {
+function Index() {
+  const navigate = useNavigate();
+
+  function handleGuestClick(e: React.MouseEvent) {
+    e.preventDefault();
+    const input = window.prompt("Digite a senha para acessar a Avaliação do Convidado:");
+    if (input === null) return;
+    if (input.trim().toLowerCase() === GUEST_PASSWORD) {
+      navigate({ to: "/avaliacao-convidado" });
+    } else {
+      window.alert("Senha incorreta.");
+    }
+  }
+
   return (
     <PageShell>
       <section className="relative overflow-hidden">
