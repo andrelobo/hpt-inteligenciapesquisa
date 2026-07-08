@@ -51,6 +51,10 @@ function Index() {
                 <img
                   src={hptLogo.url}
                   alt="Heberton Pinheiro Treinamentos"
+                  width={224}
+                  height={224}
+                  fetchPriority="high"
+                  decoding="async"
                   className="h-40 w-40 sm:h-56 sm:w-56"
                 />
               </div>
