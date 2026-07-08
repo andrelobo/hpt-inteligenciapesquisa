@@ -14,6 +14,81 @@ export type Database = {
   }
   public: {
     Tables: {
+      student_post_class_responses: {
+        Row: {
+          application_date: string
+          class_code: string
+          class_number: number
+          communication_readiness: string
+          consent: boolean
+          created_at: string
+          full_name: string
+          grammar_understanding: string
+          guest_attention: string
+          guest_contribution: string
+          id: string
+          instructor: string
+          learning_rating: string
+          methodology_rating: string
+          most_important_parameter: string
+          most_significant_content: string
+          parameters_importance: string
+          perception_change: string
+          suggestion: string | null
+          topic_to_deepen: string
+          whatsapp: string
+          workshop: string
+        }
+        Insert: {
+          application_date?: string
+          class_code?: string
+          class_number?: number
+          communication_readiness: string
+          consent?: boolean
+          created_at?: string
+          full_name: string
+          grammar_understanding: string
+          guest_attention: string
+          guest_contribution: string
+          id?: string
+          instructor?: string
+          learning_rating: string
+          methodology_rating: string
+          most_important_parameter: string
+          most_significant_content: string
+          parameters_importance: string
+          perception_change: string
+          suggestion?: string | null
+          topic_to_deepen: string
+          whatsapp: string
+          workshop?: string
+        }
+        Update: {
+          application_date?: string
+          class_code?: string
+          class_number?: number
+          communication_readiness?: string
+          consent?: boolean
+          created_at?: string
+          full_name?: string
+          grammar_understanding?: string
+          guest_attention?: string
+          guest_contribution?: string
+          id?: string
+          instructor?: string
+          learning_rating?: string
+          methodology_rating?: string
+          most_important_parameter?: string
+          most_significant_content?: string
+          parameters_importance?: string
+          perception_change?: string
+          suggestion?: string | null
+          topic_to_deepen?: string
+          whatsapp?: string
+          workshop?: string
+        }
+        Relationships: []
+      }
       student_pre_course_survey_responses: {
         Row: {
           biggest_difficulty: string
