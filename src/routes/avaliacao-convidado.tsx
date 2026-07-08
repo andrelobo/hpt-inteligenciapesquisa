@@ -272,6 +272,8 @@ function GuestEvaluationPage() {
               {submitting ? "Enviando..." : "Enviar Avaliação"}
             </button>
           </form>
+          </>
+          )}
         </div>
       </div>
     </PageShell>
