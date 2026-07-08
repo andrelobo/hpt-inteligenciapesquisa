@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { PageShell } from "@/components/hpt/Layout";
 import hptLogo from "@/assets/hpt-logo.asset.json";
 
@@ -6,7 +6,22 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const GUEST_PASSWORD = "inclusão2026hpt";
+
 function Index() {
+  const navigate = useNavigate();
+
+  function handleGuestClick(e: React.MouseEvent) {
+    e.preventDefault();
+    const input = window.prompt("Digite a senha para acessar a Avaliação do Convidado:");
+    if (input === null) return;
+    if (input.trim().toLowerCase() === GUEST_PASSWORD) {
+      navigate({ to: "/avaliacao-convidado" });
+    } else {
+      window.alert("Senha incorreta.");
+    }
+  }
+
   return (
     <PageShell>
       <section className="relative overflow-hidden">
@@ -37,12 +52,13 @@ function Index() {
                 >
                   Questionário Pós-Aula 2
                 </Link>
-                <Link
-                  to="/avaliacao-convidado"
+                <button
+                  type="button"
+                  onClick={handleGuestClick}
                   className="inline-flex items-center justify-center rounded-lg border-2 border-primary bg-surface px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary/5"
                 >
                   Avaliação do Convidado
-                </Link>
+                </button>
 
                 <Link
                   to="/admin"
