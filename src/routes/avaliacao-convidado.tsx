@@ -127,6 +127,11 @@ function GuestEvaluationPage() {
     setSubmitting(false);
     if (error) {
       console.error(error);
+      if ((error as { code?: string }).code === "23505") {
+        setLocked(true);
+        toast.error("Esta avaliação já foi respondida.");
+        return;
+      }
       toast.error("Não foi possível enviar. Tente novamente.");
       return;
     }
