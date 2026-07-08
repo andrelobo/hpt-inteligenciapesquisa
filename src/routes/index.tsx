@@ -1,10 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { PageShell } from "@/components/hpt/Layout";
 import hptLogo from "@/assets/hpt-logo.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
+
+const GUEST_PASSWORD = "inclusão2026hpt";
 
 function Index() {
   return (
