@@ -84,6 +84,7 @@
   --border: #D8E0EC;
   --input: #D8E0EC;
   --ring: #1E88E5;
+}
 
 .dark {
   --background: oklch(0.20 0.05 260);
