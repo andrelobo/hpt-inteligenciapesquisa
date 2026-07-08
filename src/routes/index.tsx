@@ -52,12 +52,13 @@ function Index() {
                 >
                   Questionário Pós-Aula 2
                 </Link>
-                <Link
-                  to="/avaliacao-convidado"
+                <button
+                  type="button"
+                  onClick={handleGuestClick}
                   className="inline-flex items-center justify-center rounded-lg border-2 border-primary bg-surface px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary/5"
                 >
                   Avaliação do Convidado
-                </Link>
+                </button>
 
                 <Link
                   to="/admin"
