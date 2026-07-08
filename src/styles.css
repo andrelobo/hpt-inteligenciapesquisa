@@ -54,28 +54,41 @@
   --surface: oklch(1 0 0);
   --surface-muted: oklch(0.965 0.012 245);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.20 0.05 260);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.20 0.05 260);
+  /* HPCT Identity — #F7F9FC background, #FFFFFF surface */
+  --background: #F7F9FC;
+  --foreground: #0B1E33;
+  --surface: #FFFFFF;
+  --surface-muted: #EEF2F8;
 
-  /* Institutional blue */
-  --primary: oklch(0.36 0.14 260);
-  --primary-foreground: oklch(0.99 0.005 240);
-  --primary-deep: oklch(0.24 0.11 262);
+  --card: #FFFFFF;
+  --card-foreground: #0B1E33;
+  --popover: #FFFFFF;
+  --popover-foreground: #0B1E33;
 
-  --secondary: oklch(0.955 0.018 250);
-  --secondary-foreground: oklch(0.28 0.10 262);
-  --muted: oklch(0.965 0.012 245);
-  --muted-foreground: oklch(0.48 0.03 258);
-  --accent: oklch(0.93 0.04 250);
-  --accent-foreground: oklch(0.28 0.10 262);
-  --destructive: oklch(0.58 0.22 27);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.90 0.015 250);
-  --input: oklch(0.92 0.014 250);
-  --ring: oklch(0.42 0.13 260);
-}
+  /* Primary #0F4C81, Secondary #1E88E5 */
+  --primary: #0F4C81;
+  --primary-foreground: #FFFFFF;
+  --primary-deep: #0A3760;
+
+  --secondary: #1E88E5;
+  --secondary-foreground: #FFFFFF;
+
+  --muted: #EEF2F8;
+  --muted-foreground: #4A5A70;
+  --accent: #E3EEFB;
+  --accent-foreground: #0F4C81;
+
+  /* Status */
+  --success: #2E7D32;
+  --success-foreground: #FFFFFF;
+  --warning: #F9A825;
+  --warning-foreground: #1A1200;
+  --destructive: #C62828;
+  --destructive-foreground: #FFFFFF;
+
+  --border: #D8E0EC;
+  --input: #D8E0EC;
+  --ring: #1E88E5;
 
 .dark {
   --background: oklch(0.20 0.05 260);
