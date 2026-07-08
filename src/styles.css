@@ -48,11 +48,6 @@
 :root {
   --radius: 0.875rem;
 
-  /* HPT institutional palette */
-  --background: oklch(0.985 0.005 240);
-  --foreground: oklch(0.20 0.05 260);
-  --surface: oklch(1 0 0);
-  --surface-muted: oklch(0.965 0.012 245);
 
   /* HPCT Identity — #F7F9FC background, #FFFFFF surface */
   --background: #F7F9FC;
