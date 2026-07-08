@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.check_guest_evaluation_single_response() FROM PUBLIC, anon, authenticated;

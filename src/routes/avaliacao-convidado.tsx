@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PageShell } from "@/components/hpt/Layout";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -65,7 +65,21 @@ const initial: FormState = {
 function GuestEvaluationPage() {
   const [form, setForm] = useState<FormState>(initial);
   const [submitting, setSubmitting] = useState(false);
+  const [locked, setLocked] = useState<boolean | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      const { count } = await supabase
+        .from("guest_evaluation_responses")
+        .select("id", { count: "exact", head: true });
+      if (alive) setLocked((count ?? 0) > 0);
+    })();
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -113,6 +127,11 @@ function GuestEvaluationPage() {
     setSubmitting(false);
     if (error) {
       console.error(error);
+      if ((error as { code?: string }).code === "23505") {
+        setLocked(true);
+        toast.error("Esta avaliação já foi respondida.");
+        return;
+      }
       toast.error("Não foi possível enviar. Tente novamente.");
       return;
     }
@@ -135,6 +154,24 @@ function GuestEvaluationPage() {
               Participação Especial: Kleberson
             </p>
           </div>
+
+          {locked === null ? (
+            <div className="p-8 text-center text-sm text-muted-foreground">
+              Carregando...
+            </div>
+          ) : locked ? (
+            <div className="space-y-4 p-8 text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-2xl">
+                🔒
+              </div>
+              <h2 className="text-lg font-semibold text-foreground">
+                Avaliação encerrada
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                Esta avaliação já foi respondida pelo convidado e está agora bloqueada para novas respostas.
+              </p>
+            </div>
+          ) : (
 
           <form onSubmit={onSubmit} className="space-y-6 p-6 sm:p-8">
             <div className="grid gap-6 sm:grid-cols-2">
@@ -218,6 +255,7 @@ function GuestEvaluationPage() {
               {submitting ? "Enviando..." : "Enviar Avaliação"}
             </button>
           </form>
+          )}
         </div>
       </div>
     </PageShell>
