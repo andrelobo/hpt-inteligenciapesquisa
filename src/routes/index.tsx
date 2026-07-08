@@ -24,12 +24,18 @@ function Index() {
                 Coleta inteligente de dados pedagógicos para entender o perfil dos alunos,
                 medir expectativas e melhorar cada nova turma.
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link
                   to="/pesquisa"
                   className="relative inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/40 ring-2 ring-primary/50 transition hover:bg-primary-deep animate-pulse"
                 >
                   Responder Pesquisa Pré-Curso
+                </Link>
+                <Link
+                  to="/pesquisa-aula-2"
+                  className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/40 ring-2 ring-primary/50 transition hover:bg-primary-deep"
+                >
+                  Questionário Pós-Aula 2
                 </Link>
                 <Link
                   to="/admin"
@@ -38,6 +44,7 @@ function Index() {
                   Acessar Painel Administrativo
                 </Link>
               </div>
+
             </div>
             <div className="relative mx-auto flex items-center justify-center">
               <div className="rounded-3xl bg-primary p-6 shadow-xl sm:p-10">

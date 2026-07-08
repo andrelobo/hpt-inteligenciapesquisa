@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PesquisaPosCursoRouteImport } from './routes/pesquisa-pos-curso'
 import { Route as PesquisaInstitucionalRouteImport } from './routes/pesquisa-institucional'
+import { Route as PesquisaAula2RouteImport } from './routes/pesquisa-aula-2'
 import { Route as PesquisaRouteImport } from './routes/pesquisa'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -24,6 +25,11 @@ const PesquisaPosCursoRoute = PesquisaPosCursoRouteImport.update({
 const PesquisaInstitucionalRoute = PesquisaInstitucionalRouteImport.update({
   id: '/pesquisa-institucional',
   path: '/pesquisa-institucional',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PesquisaAula2Route = PesquisaAula2RouteImport.update({
+  id: '/pesquisa-aula-2',
+  path: '/pesquisa-aula-2',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PesquisaRoute = PesquisaRouteImport.update({
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/obrigado': typeof ObrigadoRoute
   '/pesquisa': typeof PesquisaRoute
+  '/pesquisa-aula-2': typeof PesquisaAula2Route
   '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
   '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/obrigado': typeof ObrigadoRoute
   '/pesquisa': typeof PesquisaRoute
+  '/pesquisa-aula-2': typeof PesquisaAula2Route
   '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
   '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/obrigado': typeof ObrigadoRoute
   '/pesquisa': typeof PesquisaRoute
+  '/pesquisa-aula-2': typeof PesquisaAula2Route
   '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
   '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/obrigado'
     | '/pesquisa'
+    | '/pesquisa-aula-2'
     | '/pesquisa-institucional'
     | '/pesquisa-pos-curso'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/obrigado'
     | '/pesquisa'
+    | '/pesquisa-aula-2'
     | '/pesquisa-institucional'
     | '/pesquisa-pos-curso'
   id:
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/obrigado'
     | '/pesquisa'
+    | '/pesquisa-aula-2'
     | '/pesquisa-institucional'
     | '/pesquisa-pos-curso'
   fileRoutesById: FileRoutesById
@@ -104,6 +116,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PesquisaRoute: typeof PesquisaRoute
+  PesquisaAula2Route: typeof PesquisaAula2Route
   PesquisaInstitucionalRoute: typeof PesquisaInstitucionalRoute
   PesquisaPosCursoRoute: typeof PesquisaPosCursoRoute
 }
@@ -122,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/pesquisa-institucional'
       fullPath: '/pesquisa-institucional'
       preLoaderRoute: typeof PesquisaInstitucionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pesquisa-aula-2': {
+      id: '/pesquisa-aula-2'
+      path: '/pesquisa-aula-2'
+      fullPath: '/pesquisa-aula-2'
+      preLoaderRoute: typeof PesquisaAula2RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pesquisa': {
@@ -160,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   ObrigadoRoute: ObrigadoRoute,
   PesquisaRoute: PesquisaRoute,
+  PesquisaAula2Route: PesquisaAula2Route,
   PesquisaInstitucionalRoute: PesquisaInstitucionalRoute,
   PesquisaPosCursoRoute: PesquisaPosCursoRoute,
 }
