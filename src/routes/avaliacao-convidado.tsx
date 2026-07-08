@@ -172,23 +172,6 @@ function GuestEvaluationPage() {
               </p>
             </div>
           ) : (
-          <>
-
-    <PageShell>
-      <Toaster richColors position="top-center" />
-      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-        <div className="rounded-3xl border border-border bg-surface shadow-sm">
-          <div className="rounded-t-3xl bg-primary px-6 py-6 text-primary-foreground sm:px-8">
-            <h1 className="text-xl font-bold sm:text-2xl">
-              Questionário de Avaliação do Convidado
-            </h1>
-            <p className="mt-2 text-sm text-primary-foreground/85">
-              Oficina: Libras no Comércio – Comunicação sem Barreiras
-            </p>
-            <p className="mt-1 text-sm text-primary-foreground/85">
-              Participação Especial: Kleberson
-            </p>
-          </div>
 
           <form onSubmit={onSubmit} className="space-y-6 p-6 sm:p-8">
             <div className="grid gap-6 sm:grid-cols-2">
