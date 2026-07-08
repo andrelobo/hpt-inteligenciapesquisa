@@ -43,8 +43,19 @@ export function HptHeader() {
 export function HptFooter() {
   return (
     <footer className="border-t border-border bg-surface-muted">
-      <div className="mx-auto max-w-6xl px-4 py-6 text-center text-xs text-muted-foreground sm:px-6">
-        © {new Date().getFullYear()} Heberton Pinheiro Treinamentos · Inteligência Pedagógica para Treinamentos Inclusivos
+      <div className="mx-auto max-w-6xl px-4 py-8 text-center sm:px-6">
+        <div className="font-heading text-sm font-semibold tracking-wide text-primary">
+          HPCT Insight
+        </div>
+        <div className="mt-1 text-xs text-muted-foreground">
+          Sistema Inteligente de Pesquisas, Avaliações e Indicadores
+        </div>
+        <div className="mt-3 text-[11px] text-muted-foreground">
+          Desenvolvido por <span className="font-medium text-foreground">Heberton Pinheiro Consultoria e Treinamento</span>
+        </div>
+        <div className="mt-2 text-[10px] text-muted-foreground/70">
+          © {new Date().getFullYear()} HPCT · Todos os direitos reservados
+        </div>
       </div>
     </footer>
   );
