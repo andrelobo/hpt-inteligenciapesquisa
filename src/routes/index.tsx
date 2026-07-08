@@ -17,7 +17,7 @@ function Index() {
               <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
                 Inteligência Pedagógica
               </span>
-              <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-foreground sm:text-5xl">
+              <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl">
                 Sistema de Pesquisas <span className="text-primary">HPT</span>
               </h1>
               <p className="mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
@@ -51,6 +51,10 @@ function Index() {
                 <img
                   src={hptLogo.url}
                   alt="Heberton Pinheiro Treinamentos"
+                  width={224}
+                  height={224}
+                  fetchPriority="high"
+                  decoding="async"
                   className="h-40 w-40 sm:h-56 sm:w-56"
                 />
               </div>
