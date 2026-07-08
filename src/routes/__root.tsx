@@ -108,9 +108,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "dns-prefetch", href: "https://fhrkjqxedwftzxeuultk.supabase.co" },
+      {
+        rel: "preload",
+        as: "image",
+        href: "/__l5e/assets-v1/ccbf603c-b6a8-4bc8-ae55-4eff377dc7bd/hpt-logo.png",
+        fetchpriority: "high",
+      },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Manrope:wght@600;700&family=IBM+Plex+Sans:wght@400;600&family=Space+Grotesk:wght@500&display=swap",
       },
     ],
   }),
