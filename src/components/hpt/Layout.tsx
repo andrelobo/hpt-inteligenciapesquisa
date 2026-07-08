@@ -10,6 +10,9 @@ export function HptHeader() {
           <img
             src={hptLogo.url}
             alt="Heberton Pinheiro Consultoria e Treinamento"
+            width={40}
+            height={40}
+            decoding="async"
             className="h-10 w-10 shrink-0 rounded-md bg-primary-deep object-contain p-1"
           />
           <div className="min-w-0 leading-tight">
