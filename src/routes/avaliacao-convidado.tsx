@@ -65,7 +65,21 @@ const initial: FormState = {
 function GuestEvaluationPage() {
   const [form, setForm] = useState<FormState>(initial);
   const [submitting, setSubmitting] = useState(false);
+  const [locked, setLocked] = useState<boolean | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      const { count } = await supabase
+        .from("guest_evaluation_responses")
+        .select("id", { count: "exact", head: true });
+      if (alive) setLocked((count ?? 0) > 0);
+    })();
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
