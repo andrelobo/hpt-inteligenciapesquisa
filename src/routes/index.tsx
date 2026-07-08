@@ -9,7 +9,6 @@ export const Route = createFileRoute("/")({
 const GUEST_PASSWORD = "inclusão2026hpt";
 
 function Index() {
-function Index() {
   const navigate = useNavigate();
 
   function handleGuestClick(e: React.MouseEvent) {
