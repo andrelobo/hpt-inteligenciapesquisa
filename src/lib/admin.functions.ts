@@ -12,10 +12,29 @@ export const getSurveyResponses = createServerFn({ method: "POST" })
       throw new Error("Senha incorreta.");
     }
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: rows, error } = await supabaseAdmin
-      .from("student_pre_course_survey_responses")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (error) throw new Error(error.message);
-    return { rows: rows ?? [] };
+
+    const [preCourse, postClass, guest] = await Promise.all([
+      supabaseAdmin
+        .from("student_pre_course_survey_responses")
+        .select("*")
+        .order("created_at", { ascending: false }),
+      supabaseAdmin
+        .from("student_post_class_responses")
+        .select("*")
+        .order("created_at", { ascending: false }),
+      supabaseAdmin
+        .from("guest_evaluation_responses")
+        .select("*")
+        .order("created_at", { ascending: false }),
+    ]);
+
+    if (preCourse.error) throw new Error(preCourse.error.message);
+    if (postClass.error) throw new Error(postClass.error.message);
+    if (guest.error) throw new Error(guest.error.message);
+
+    return {
+      rows: preCourse.data ?? [],
+      postClassRows: postClass.data ?? [],
+      guestRows: guest.data ?? [],
+    };
   });
