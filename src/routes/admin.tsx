@@ -131,6 +131,7 @@ function AdminPage() {
   const [password, setPassword] = useState("");
   const [rows, setRows] = useState<Row[] | null>(null);
   const [postRows, setPostRows] = useState<PostClassRow[]>([]);
+  const [post3Rows, setPost3Rows] = useState<PostClass3Row[]>([]);
   const [guestRows, setGuestRows] = useState<GuestRow[]>([]);
   const [loading, setLoading] = useState(false);
   const [companyFilter, setCompanyFilter] = useState("");
@@ -145,6 +146,7 @@ function AdminPage() {
       const res = await fetchRows({ data: { password } });
       setRows((res.rows ?? []) as Row[]);
       setPostRows((res.postClassRows ?? []) as PostClassRow[]);
+      setPost3Rows((res.postClass3Rows ?? []) as PostClass3Row[]);
       setGuestRows((res.guestRows ?? []) as GuestRow[]);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Erro ao entrar.";
