@@ -95,6 +95,30 @@ type GuestRow = {
   consent: boolean;
 };
 
+type PostClass4Row = {
+  id: string;
+  created_at: string;
+  class_code: string;
+  class_number: number;
+  full_name: string;
+  whatsapp: string;
+  instructor: string;
+  workshop: string;
+  application_date: string;
+  q1_activity_objective: string;
+  q2_learning_depends_on: string;
+  q3_instructor_action: string;
+  q4_pairs_objective: string;
+  q5_students_alternated: string;
+  q6_error_treated_as: string;
+  q7_indispensable_element: string;
+  q8_collective_reflection: string;
+  q9_evaluation_result: string;
+  q10_workshop_objective: string;
+  suggestion: string | null;
+  consent: boolean;
+};
+
 type PostClass3Row = {
   id: string;
   created_at: string;
@@ -125,13 +149,14 @@ type PostClass3Row = {
 
 const PIE_COLORS = ["#1e3a8a", "#3b82f6", "#93c5fd", "#60a5fa", "#1d4ed8"];
 
-type TabKey = "pre" | "post1" | "post2" | "post3" | "guest";
+type TabKey = "pre" | "post1" | "post2" | "post3" | "post4" | "guest";
 
 function AdminPage() {
   const [password, setPassword] = useState("");
   const [rows, setRows] = useState<Row[] | null>(null);
   const [postRows, setPostRows] = useState<PostClassRow[]>([]);
   const [post3Rows, setPost3Rows] = useState<PostClass3Row[]>([]);
+  const [post4Rows, setPost4Rows] = useState<PostClass4Row[]>([]);
   const [guestRows, setGuestRows] = useState<GuestRow[]>([]);
   const [loading, setLoading] = useState(false);
   const [companyFilter, setCompanyFilter] = useState("");
@@ -147,6 +172,7 @@ function AdminPage() {
       setRows((res.rows ?? []) as Row[]);
       setPostRows((res.postClassRows ?? []) as PostClassRow[]);
       setPost3Rows((res.postClass3Rows ?? []) as PostClass3Row[]);
+      setPost4Rows((res.postClass4Rows ?? []) as PostClass4Row[]);
       setGuestRows((res.guestRows ?? []) as GuestRow[]);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Erro ao entrar.";
@@ -215,6 +241,9 @@ function AdminPage() {
           <TabBtn active={tab === "post3"} onClick={() => setTab("post3")}>
             Pós-Aula 3 ({post3Rows.length})
           </TabBtn>
+          <TabBtn active={tab === "post4"} onClick={() => setTab("post4")}>
+            Pós-Aula 4 ({post4Rows.length})
+          </TabBtn>
           <TabBtn active={tab === "guest"} onClick={() => setTab("guest")}>
             Avaliação do Convidado ({guestRows.length})
           </TabBtn>
@@ -245,6 +274,8 @@ function AdminPage() {
         )}
 
         {tab === "post3" && <PostClass3Panel rows={post3Rows} />}
+
+        {tab === "post4" && <PostClass4Panel rows={post4Rows} />}
 
         {tab === "guest" && <GuestPanel rows={guestRows} />}
       </div>
@@ -875,6 +906,204 @@ function PostClass3Panel({ rows }: { rows: PostClass3Row[] }) {
 }
 
 
+
+function PostClass4Panel({ rows }: { rows: PostClass4Row[] }) {
+  const q1 = useMemo(() => ratingBreakdown(rows, "q1_activity_objective"), [rows]);
+  const q2 = useMemo(() => ratingBreakdown(rows, "q2_learning_depends_on"), [rows]);
+  const q3 = useMemo(() => ratingBreakdown(rows, "q3_instructor_action"), [rows]);
+  const q4 = useMemo(() => ratingBreakdown(rows, "q4_pairs_objective"), [rows]);
+  const q5 = useMemo(() => ratingBreakdown(rows, "q5_students_alternated"), [rows]);
+  const q6 = useMemo(() => ratingBreakdown(rows, "q6_error_treated_as"), [rows]);
+  const q7 = useMemo(() => ratingBreakdown(rows, "q7_indispensable_element"), [rows]);
+  const q8 = useMemo(() => ratingBreakdown(rows, "q8_collective_reflection"), [rows]);
+  const q9 = useMemo(() => ratingBreakdown(rows, "q9_evaluation_result"), [rows]);
+  const q10 = useMemo(() => ratingBreakdown(rows, "q10_workshop_objective"), [rows]);
+
+  const correctAnswers: Record<string, string> = {
+    q1_activity_objective: "Avaliar o aprendizado acumulado",
+    q2_learning_depends_on: "Prática constante",
+    q3_instructor_action: "Mostrou e sinalizou o diálogo duas vezes",
+    q4_pairs_objective: "Simular situações reais de comunicação",
+    q5_students_alternated: "Papéis A e B",
+    q6_error_treated_as: "Algo natural do processo de aprendizagem",
+    q7_indispensable_element: "Expressões faciais e contexto",
+    q8_collective_reflection: "A repetição fortalece a aprendizagem",
+    q9_evaluation_result: "A turma apresentou bom aproveitamento",
+    q10_workshop_objective: "Promover comunicação inclusiva",
+  };
+
+  const totalCorrect = useMemo(() => {
+    return rows.map((r) => {
+      let correct = 0;
+      if (r.q1_activity_objective === correctAnswers.q1_activity_objective) correct++;
+      if (r.q2_learning_depends_on === correctAnswers.q2_learning_depends_on) correct++;
+      if (r.q3_instructor_action === correctAnswers.q3_instructor_action) correct++;
+      if (r.q4_pairs_objective === correctAnswers.q4_pairs_objective) correct++;
+      if (r.q5_students_alternated === correctAnswers.q5_students_alternated) correct++;
+      if (r.q6_error_treated_as === correctAnswers.q6_error_treated_as) correct++;
+      if (r.q7_indispensable_element === correctAnswers.q7_indispensable_element) correct++;
+      if (r.q8_collective_reflection === correctAnswers.q8_collective_reflection) correct++;
+      if (r.q9_evaluation_result === correctAnswers.q9_evaluation_result) correct++;
+      if (r.q10_workshop_objective === correctAnswers.q10_workshop_objective) correct++;
+      return correct;
+    });
+  }, [rows]);
+
+  const avgHits = rows.length > 0
+    ? (totalCorrect.reduce((a, b) => a + b, 0) / rows.length).toFixed(1)
+    : "—";
+
+  function exportCSV() {
+    const headers = [
+      "id",
+      "created_at",
+      "class_code",
+      "class_number",
+      "full_name",
+      "whatsapp",
+      "q1_activity_objective",
+      "q2_learning_depends_on",
+      "q3_instructor_action",
+      "q4_pairs_objective",
+      "q5_students_alternated",
+      "q6_error_treated_as",
+      "q7_indispensable_element",
+      "q8_collective_reflection",
+      "q9_evaluation_result",
+      "q10_workshop_objective",
+      "suggestion",
+      "consent",
+    ];
+    downloadCSV(
+      `pos-aula-4-${new Date().toISOString().slice(0, 10)}.csv`,
+      headers,
+      rows as unknown as Record<string, unknown>[],
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-end">
+        <button
+          onClick={exportCSV}
+          className="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary-deep"
+        >
+          Exportar CSV
+        </button>
+      </div>
+
+      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <Kpi label="Total de respostas" value={String(rows.length)} />
+        <Kpi label="Média de acertos" value={String(avgHits)} suffix="/10" />
+        <Kpi
+          label="% Aproveitamento ≥ 70%"
+          value={`${pct(totalCorrect, (c) => c >= 7)}%`}
+        />
+        <Kpi
+          label="% Aproveitamento ≥ 90%"
+          value={`${pct(totalCorrect, (c) => c >= 9)}%`}
+        />
+      </section>
+
+      <section className="grid gap-4 lg:grid-cols-2">
+        <Card title="1. Principal objetivo da datilologia">
+          <RatingBars data={q1} />
+        </Card>
+        <Card title="2. Aprender Libras depende de">
+          <RatingBars data={q2} />
+        </Card>
+        <Card title="3. Ação do instrutor antes dos diálogos">
+          <RatingBars data={q3} />
+        </Card>
+        <Card title="4. Objetivo da prática em duplas">
+          <RatingBars data={q4} />
+        </Card>
+        <Card title="5. Alunos alternaram">
+          <RatingBars data={q5} />
+        </Card>
+        <Card title="6. Erro tratado como">
+          <RatingBars data={q6} />
+        </Card>
+        <Card title="7. Elemento indispensável na sinalização">
+          <RatingBars data={q7} />
+        </Card>
+        <Card title="8. Reflexão coletiva destacou">
+          <RatingBars data={q8} />
+        </Card>
+        <Card title="9. Resultado da avaliação">
+          <RatingBars data={q9} />
+        </Card>
+        <Card title="10. Objetivo da oficina">
+          <RatingBars data={q10} />
+        </Card>
+      </section>
+
+      <section className="grid gap-4 lg:grid-cols-2">
+        <Card title="Sugestões e comentários">
+          <TextList items={rows.map((r) => r.suggestion ?? "").filter(Boolean)} />
+        </Card>
+      </section>
+
+      <Card title={`Respostas (${rows.length})`}>
+        <div className="-mx-4 overflow-x-auto sm:mx-0">
+          <table className="w-full min-w-[1600px] border-collapse text-left text-sm">
+            <thead className="bg-surface-muted text-xs uppercase tracking-wide text-muted-foreground">
+              <tr>
+                <Th>Data</Th>
+                <Th>Turma</Th>
+                <Th>Nome</Th>
+                <Th>WhatsApp</Th>
+                <Th>Q1</Th>
+                <Th>Q2</Th>
+                <Th>Q3</Th>
+                <Th>Q4</Th>
+                <Th>Q5</Th>
+                <Th>Q6</Th>
+                <Th>Q7</Th>
+                <Th>Q8</Th>
+                <Th>Q9</Th>
+                <Th>Q10</Th>
+                <Th>Acertos</Th>
+                <Th>Sugestão</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r, i) => (
+                <tr key={r.id} className="border-t border-border align-top">
+                  <Td>{new Date(r.created_at).toLocaleString("pt-BR")}</Td>
+                  <Td className="font-semibold text-primary">{r.class_code}</Td>
+                  <Td>{r.full_name}</Td>
+                  <Td>{r.whatsapp}</Td>
+                  <Td>{r.q1_activity_objective}</Td>
+                  <Td>{r.q2_learning_depends_on}</Td>
+                  <Td>{r.q3_instructor_action}</Td>
+                  <Td>{r.q4_pairs_objective}</Td>
+                  <Td>{r.q5_students_alternated}</Td>
+                  <Td>{r.q6_error_treated_as}</Td>
+                  <Td>{r.q7_indispensable_element}</Td>
+                  <Td>{r.q8_collective_reflection}</Td>
+                  <Td>{r.q9_evaluation_result}</Td>
+                  <Td>{r.q10_workshop_objective}</Td>
+                  <Td className="text-center font-bold text-primary">
+                    {totalCorrect[i]}/10
+                  </Td>
+                  <Td className="max-w-[200px] whitespace-pre-wrap">{r.suggestion ?? "—"}</Td>
+                </tr>
+              ))}
+              {rows.length === 0 && (
+                <tr>
+                  <td colSpan={16} className="py-6 text-center text-sm text-muted-foreground">
+                    Nenhuma resposta ainda.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+}
 
 function GuestPanel({ rows }: { rows: GuestRow[] }) {
   const experience = useMemo(() => ratingBreakdown(rows, "experience_rating"), [rows]);

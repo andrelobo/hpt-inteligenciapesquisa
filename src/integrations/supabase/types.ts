@@ -239,6 +239,78 @@ export type Database = {
         }
         Relationships: []
       }
+      student_post_class_4_responses: {
+        Row: {
+          id: string
+          full_name: string
+          whatsapp: string
+          class_code: string
+          class_number: number
+          instructor: string
+          workshop: string
+          application_date: string
+          q1_activity_objective: string
+          q2_learning_depends_on: string
+          q3_instructor_action: string
+          q4_pairs_objective: string
+          q5_students_alternated: string
+          q6_error_treated_as: string
+          q7_indispensable_element: string
+          q8_collective_reflection: string
+          q9_evaluation_result: string
+          q10_workshop_objective: string
+          suggestion: string | null
+          consent: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          full_name: string
+          whatsapp: string
+          class_code?: string
+          class_number?: number
+          instructor?: string
+          workshop?: string
+          application_date?: string
+          q1_activity_objective: string
+          q2_learning_depends_on: string
+          q3_instructor_action: string
+          q4_pairs_objective: string
+          q5_students_alternated: string
+          q6_error_treated_as: string
+          q7_indispensable_element: string
+          q8_collective_reflection: string
+          q9_evaluation_result: string
+          q10_workshop_objective: string
+          suggestion?: string | null
+          consent?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          full_name?: string
+          whatsapp?: string
+          class_code?: string
+          class_number?: number
+          instructor?: string
+          workshop?: string
+          application_date?: string
+          q1_activity_objective?: string
+          q2_learning_depends_on?: string
+          q3_instructor_action?: string
+          q4_pairs_objective?: string
+          q5_students_alternated?: string
+          q6_error_treated_as?: string
+          q7_indispensable_element?: string
+          q8_collective_reflection?: string
+          q9_evaluation_result?: string
+          q10_workshop_objective?: string
+          suggestion?: string | null
+          consent?: boolean
+          created_at?: string
+        }
+        Relationships: []
+      }
       student_pre_course_survey_responses: {
         Row: {
           biggest_difficulty: string

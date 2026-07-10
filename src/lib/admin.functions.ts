@@ -13,7 +13,7 @@ export const getSurveyResponses = createServerFn({ method: "POST" })
     }
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const [preCourse, postClass, postClass3, guest] = await Promise.all([
+    const [preCourse, postClass, postClass3, postClass4, guest] = await Promise.all([
       supabaseAdmin
         .from("student_pre_course_survey_responses")
         .select("*")
@@ -27,6 +27,10 @@ export const getSurveyResponses = createServerFn({ method: "POST" })
         .select("*")
         .order("created_at", { ascending: false }),
       supabaseAdmin
+        .from("student_post_class_4_responses")
+        .select("*")
+        .order("created_at", { ascending: false }),
+      supabaseAdmin
         .from("guest_evaluation_responses")
         .select("*")
         .order("created_at", { ascending: false }),
@@ -36,11 +40,13 @@ export const getSurveyResponses = createServerFn({ method: "POST" })
     if (postClass.error) throw new Error(postClass.error.message);
     if (postClass3.error) throw new Error(postClass3.error.message);
     if (guest.error) throw new Error(guest.error.message);
+    if (postClass4.error) throw new Error(postClass4.error.message);
 
     return {
       rows: preCourse.data ?? [],
       postClassRows: postClass.data ?? [],
       postClass3Rows: postClass3.data ?? [],
+      postClass4Rows: postClass4.data ?? [],
       guestRows: guest.data ?? [],
     };
   });

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PesquisaPosCursoRouteImport } from './routes/pesquisa-pos-curso'
 import { Route as PesquisaInstitucionalRouteImport } from './routes/pesquisa-institucional'
+import { Route as PesquisaAula4RouteImport } from './routes/pesquisa-aula-4'
 import { Route as PesquisaAula3RouteImport } from './routes/pesquisa-aula-3'
 import { Route as PesquisaAula2RouteImport } from './routes/pesquisa-aula-2'
 import { Route as PesquisaRouteImport } from './routes/pesquisa'
@@ -27,6 +28,11 @@ const PesquisaPosCursoRoute = PesquisaPosCursoRouteImport.update({
 const PesquisaInstitucionalRoute = PesquisaInstitucionalRouteImport.update({
   id: '/pesquisa-institucional',
   path: '/pesquisa-institucional',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PesquisaAula4Route = PesquisaAula4RouteImport.update({
+  id: '/pesquisa-aula-4',
+  path: '/pesquisa-aula-4',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PesquisaAula3Route = PesquisaAula3RouteImport.update({
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/pesquisa': typeof PesquisaRoute
   '/pesquisa-aula-2': typeof PesquisaAula2Route
   '/pesquisa-aula-3': typeof PesquisaAula3Route
+  '/pesquisa-aula-4': typeof PesquisaAula4Route
   '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
   '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/pesquisa': typeof PesquisaRoute
   '/pesquisa-aula-2': typeof PesquisaAula2Route
   '/pesquisa-aula-3': typeof PesquisaAula3Route
+  '/pesquisa-aula-4': typeof PesquisaAula4Route
   '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
   '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/pesquisa': typeof PesquisaRoute
   '/pesquisa-aula-2': typeof PesquisaAula2Route
   '/pesquisa-aula-3': typeof PesquisaAula3Route
+  '/pesquisa-aula-4': typeof PesquisaAula4Route
   '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
   '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/pesquisa'
     | '/pesquisa-aula-2'
     | '/pesquisa-aula-3'
+    | '/pesquisa-aula-4'
     | '/pesquisa-institucional'
     | '/pesquisa-pos-curso'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/pesquisa'
     | '/pesquisa-aula-2'
     | '/pesquisa-aula-3'
+    | '/pesquisa-aula-4'
     | '/pesquisa-institucional'
     | '/pesquisa-pos-curso'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/pesquisa'
     | '/pesquisa-aula-2'
     | '/pesquisa-aula-3'
+    | '/pesquisa-aula-4'
     | '/pesquisa-institucional'
     | '/pesquisa-pos-curso'
   fileRoutesById: FileRoutesById
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   PesquisaRoute: typeof PesquisaRoute
   PesquisaAula2Route: typeof PesquisaAula2Route
   PesquisaAula3Route: typeof PesquisaAula3Route
+  PesquisaAula4Route: typeof PesquisaAula4Route
   PesquisaInstitucionalRoute: typeof PesquisaInstitucionalRoute
   PesquisaPosCursoRoute: typeof PesquisaPosCursoRoute
 }
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/pesquisa-institucional'
       fullPath: '/pesquisa-institucional'
       preLoaderRoute: typeof PesquisaInstitucionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pesquisa-aula-4': {
+      id: '/pesquisa-aula-4'
+      path: '/pesquisa-aula-4'
+      fullPath: '/pesquisa-aula-4'
+      preLoaderRoute: typeof PesquisaAula4RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pesquisa-aula-3': {
@@ -223,9 +243,20 @@ const rootRouteChildren: RootRouteChildren = {
   PesquisaRoute: PesquisaRoute,
   PesquisaAula2Route: PesquisaAula2Route,
   PesquisaAula3Route: PesquisaAula3Route,
+  PesquisaAula4Route: PesquisaAula4Route,
   PesquisaInstitucionalRoute: PesquisaInstitucionalRoute,
   PesquisaPosCursoRoute: PesquisaPosCursoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

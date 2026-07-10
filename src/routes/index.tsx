@@ -52,12 +52,18 @@ function Index() {
                 >
                   Questionário Pós-Aula 2
                 </Link>
-                <Link
-                  to="/pesquisa-aula-3"
-                  className="relative inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/40 ring-2 ring-primary/50 transition hover:bg-primary-deep animate-pulse"
-                >
-                  Questionário Pós-Aula 3
-                </Link>
+                  <Link
+                    to="/pesquisa-aula-3"
+                    className="relative inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/40 ring-2 ring-primary/50 transition hover:bg-primary-deep"
+                  >
+                    Questionário Pós-Aula 3
+                  </Link>
+                  <Link
+                    to="/pesquisa-aula-4"
+                    className="relative inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/40 ring-2 ring-primary/50 transition hover:bg-primary-deep animate-pulse"
+                  >
+                    Questionário Pós-Aula 4
+                  </Link>
                 <button
                   type="button"
                   onClick={handleGuestClick}
