@@ -244,6 +244,8 @@ function AdminPage() {
           />
         )}
 
+        {tab === "post3" && <PostClass3Panel rows={post3Rows} />}
+
         {tab === "guest" && <GuestPanel rows={guestRows} />}
       </div>
     </PageShell>
