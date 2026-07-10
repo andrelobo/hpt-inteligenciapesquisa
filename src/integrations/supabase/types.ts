@@ -80,6 +80,90 @@ export type Database = {
         }
         Relationships: []
       }
+      student_post_class_3_responses: {
+        Row: {
+          application_date: string
+          autonomous_research_readiness: string
+          class_code: string
+          class_number: number
+          consent: boolean
+          continue_using_handtalk: string
+          created_at: string
+          evolution_perception: string
+          full_name: string
+          handtalk_attention: string
+          handtalk_presentation_rating: string
+          handtalk_usage_success: string
+          handtalk_usefulness: string
+          id: string
+          instructor: string
+          knew_handtalk: string
+          learning_rating: string
+          main_learning: string
+          methodology_rating: string
+          objects_activity_contribution: string
+          parameters_comprehension: string
+          suggestion: string | null
+          topic_to_learn: string
+          whatsapp: string
+          workshop: string
+        }
+        Insert: {
+          application_date?: string
+          autonomous_research_readiness: string
+          class_code?: string
+          class_number?: number
+          consent?: boolean
+          continue_using_handtalk: string
+          created_at?: string
+          evolution_perception: string
+          full_name: string
+          handtalk_attention: string
+          handtalk_presentation_rating: string
+          handtalk_usage_success: string
+          handtalk_usefulness: string
+          id?: string
+          instructor?: string
+          knew_handtalk: string
+          learning_rating: string
+          main_learning: string
+          methodology_rating: string
+          objects_activity_contribution: string
+          parameters_comprehension: string
+          suggestion?: string | null
+          topic_to_learn: string
+          whatsapp: string
+          workshop?: string
+        }
+        Update: {
+          application_date?: string
+          autonomous_research_readiness?: string
+          class_code?: string
+          class_number?: number
+          consent?: boolean
+          continue_using_handtalk?: string
+          created_at?: string
+          evolution_perception?: string
+          full_name?: string
+          handtalk_attention?: string
+          handtalk_presentation_rating?: string
+          handtalk_usage_success?: string
+          handtalk_usefulness?: string
+          id?: string
+          instructor?: string
+          knew_handtalk?: string
+          learning_rating?: string
+          main_learning?: string
+          methodology_rating?: string
+          objects_activity_contribution?: string
+          parameters_comprehension?: string
+          suggestion?: string | null
+          topic_to_learn?: string
+          whatsapp?: string
+          workshop?: string
+        }
+        Relationships: []
+      }
       student_post_class_responses: {
         Row: {
           application_date: string

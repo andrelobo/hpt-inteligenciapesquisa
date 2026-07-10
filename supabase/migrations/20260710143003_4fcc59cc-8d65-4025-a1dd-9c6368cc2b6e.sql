@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.check_post_class_3_unique_response() FROM PUBLIC, anon, authenticated;
