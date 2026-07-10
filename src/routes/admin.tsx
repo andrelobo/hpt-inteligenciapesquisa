@@ -119,6 +119,39 @@ type PostClass4Row = {
   consent: boolean;
 };
 
+type PostClass5Row = {
+  id: string;
+  created_at: string;
+  class_code: string;
+  class_number: number;
+  full_name: string;
+  whatsapp: string;
+  instructor: string;
+  workshop: string;
+  application_date: string;
+  q1_why_learn_culture: string;
+  q2_libras_is: string;
+  q3_communicational_accessibility: string;
+  q4_two_barriers: string;
+  q5_inclusive_environment: string;
+  q6_first_contact_attitude: string;
+  q7_facial_expressions_importance: string;
+  q8_eye_contact_importance: string;
+  q9_learning_depends_on: string;
+  q10_what_caught_attention: string;
+  q11_how_to_start_service: string;
+  q12_forgot_a_signal: string;
+  q13_colleague_fearful: string;
+  q14_libras_improves_service: string;
+  q15_apply_in_workplace: string;
+  q16_self_assessment: string;
+  q17_most_important_content: string;
+  q18_best_activity: string;
+  q19_feel_prepared: string;
+  q19_explanation: string;
+  q20_suggestion: string;
+};
+
 type PostClass3Row = {
   id: string;
   created_at: string;
@@ -149,7 +182,7 @@ type PostClass3Row = {
 
 const PIE_COLORS = ["#1e3a8a", "#3b82f6", "#93c5fd", "#60a5fa", "#1d4ed8"];
 
-type TabKey = "pre" | "post1" | "post2" | "post3" | "post4" | "guest";
+type TabKey = "pre" | "post1" | "post2" | "post3" | "post4" | "post5" | "guest";
 
 function AdminPage() {
   const [password, setPassword] = useState("");
@@ -157,6 +190,7 @@ function AdminPage() {
   const [postRows, setPostRows] = useState<PostClassRow[]>([]);
   const [post3Rows, setPost3Rows] = useState<PostClass3Row[]>([]);
   const [post4Rows, setPost4Rows] = useState<PostClass4Row[]>([]);
+  const [post5Rows, setPost5Rows] = useState<PostClass5Row[]>([]);
   const [guestRows, setGuestRows] = useState<GuestRow[]>([]);
   const [loading, setLoading] = useState(false);
   const [companyFilter, setCompanyFilter] = useState("");
@@ -173,6 +207,7 @@ function AdminPage() {
       setPostRows((res.postClassRows ?? []) as PostClassRow[]);
       setPost3Rows((res.postClass3Rows ?? []) as PostClass3Row[]);
       setPost4Rows((res.postClass4Rows ?? []) as PostClass4Row[]);
+      setPost5Rows((res.postClass5Rows ?? []) as PostClass5Row[]);
       setGuestRows((res.guestRows ?? []) as GuestRow[]);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Erro ao entrar.";
@@ -244,6 +279,9 @@ function AdminPage() {
           <TabBtn active={tab === "post4"} onClick={() => setTab("post4")}>
             Pós-Aula 4 ({post4Rows.length})
           </TabBtn>
+          <TabBtn active={tab === "post5"} onClick={() => setTab("post5")}>
+            Pós-Aula 5 ({post5Rows.length})
+          </TabBtn>
           <TabBtn active={tab === "guest"} onClick={() => setTab("guest")}>
             Avaliação do Convidado ({guestRows.length})
           </TabBtn>
@@ -276,6 +314,8 @@ function AdminPage() {
         {tab === "post3" && <PostClass3Panel rows={post3Rows} />}
 
         {tab === "post4" && <PostClass4Panel rows={post4Rows} />}
+
+        {tab === "post5" && <PostClass5Panel rows={post5Rows} />}
 
         {tab === "guest" && <GuestPanel rows={guestRows} />}
       </div>
@@ -1303,6 +1343,237 @@ function EmptyChart() {
   return (
     <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
       Sem dados ainda.
+    </div>
+  );
+}
+
+function PostClass5Panel({ rows }: { rows: PostClass5Row[] }) {
+  const [csvLoading, setCsvLoading] = useState(false);
+
+  const q1 = useMemo(() => ratingBreakdown(rows, "q1_why_learn_culture"), [rows]);
+  const q2 = useMemo(() => ratingBreakdown(rows, "q2_libras_is"), [rows]);
+  const q6 = useMemo(() => ratingBreakdown(rows, "q6_first_contact_attitude"), [rows]);
+  const q9 = useMemo(() => ratingBreakdown(rows, "q9_learning_depends_on"), [rows]);
+  const q16 = useMemo(() => ratingBreakdown(rows, "q16_self_assessment"), [rows]);
+  const q19 = useMemo(() => ratingBreakdown(rows, "q19_feel_prepared"), [rows]);
+
+  function downloadCSV() {
+    setCsvLoading(true);
+    const header = [
+      "full_name", "whatsapp", "class_code",
+      "q1_why_learn_culture", "q2_libras_is",
+      "q3_communicational_accessibility", "q4_two_barriers",
+      "q5_inclusive_environment", "q6_first_contact_attitude",
+      "q7_facial_expressions_importance", "q8_eye_contact_importance",
+      "q9_learning_depends_on", "q10_what_caught_attention",
+      "q11_how_to_start_service", "q12_forgot_a_signal",
+      "q13_colleague_fearful", "q14_libras_improves_service",
+      "q15_apply_in_workplace", "q16_self_assessment",
+      "q17_most_important_content", "q18_best_activity",
+      "q19_feel_prepared", "q19_explanation", "q20_suggestion",
+      "created_at",
+    ].join(",");
+    const lines = rows.map((r) =>
+      [
+        r.full_name, r.whatsapp, r.class_code,
+        r.q1_why_learn_culture, r.q2_libras_is,
+        r.q3_communicational_accessibility, r.q4_two_barriers,
+        r.q5_inclusive_environment, r.q6_first_contact_attitude,
+        r.q7_facial_expressions_importance, r.q8_eye_contact_importance,
+        r.q9_learning_depends_on, r.q10_what_caught_attention,
+        r.q11_how_to_start_service, r.q12_forgot_a_signal,
+        r.q13_colleague_fearful, r.q14_libras_improves_service,
+        r.q15_apply_in_workplace, r.q16_self_assessment,
+        r.q17_most_important_content, r.q18_best_activity,
+        r.q19_feel_prepared, r.q19_explanation, r.q20_suggestion,
+        r.created_at,
+      ]
+        .map((v) => `"${String(v).replace(/"/g, '""')}"`)
+        .join(","),
+    );
+    const blob = new Blob([[header, ...lines].join("\n")], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `hpt-pos-aula-5-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    setCsvLoading(false);
+  }
+
+  return (
+    <div className="space-y-8">
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">
+          {rows.length} resposta{rows.length !== 1 ? "s" : ""}
+        </p>
+        <button
+          onClick={downloadCSV}
+          disabled={csvLoading || rows.length === 0}
+          className="rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-foreground transition hover:bg-accent disabled:opacity-50"
+        >
+          {csvLoading ? "Exportando..." : "Exportar CSV"}
+        </button>
+      </div>
+
+      <SectionTitle>Parte I – Cultura Surda e Inclusão</SectionTitle>
+
+      <ChartCard title='1. Por que conhecer a cultura surda é importante antes de aprender Libras?' data={q1} />
+      <ChartCard title="2. A Libras é:" data={q2} />
+      <TextListCard title="3. O que significa acessibilidade comunicacional?" rows={rows} field="q3_communicational_accessibility" />
+      <TextListCard title="4. Cite duas barreiras enfrentadas por pessoas surdas no atendimento comercial." rows={rows} field="q4_two_barriers" />
+      <TextListCard title="5. Como um profissional pode contribuir para um ambiente mais inclusivo?" rows={rows} field="q5_inclusive_environment" />
+
+      <SectionTitle>Parte II – Comunicação no Comércio</SectionTitle>
+
+      <ChartCard title="6. Ao atender uma pessoa surda pela primeira vez, qual deve ser sua postura?" data={q6} />
+      <TextListCard title="7. Por que as expressões faciais são importantes na Libras?" rows={rows} field="q7_facial_expressions_importance" />
+      <TextListCard title="8. Qual é a importância do contato visual durante a comunicação?" rows={rows} field="q8_eye_contact_importance" />
+      <ChartCard title="9. O aprendizado da Libras depende principalmente de:" data={q9} />
+      <TextListCard title="10. O que mais chamou sua atenção durante as aulas desta semana?" rows={rows} field="q10_what_caught_attention" />
+
+      <SectionTitle>Parte III – Situações Práticas</SectionTitle>
+
+      <TextListCard title="11. Como você iniciaria o atendimento?" rows={rows} field="q11_how_to_start_service" />
+      <TextListCard title="12. Durante a conversa você esquece um sinal. Como deve agir?" rows={rows} field="q12_forgot_a_signal" />
+      <TextListCard title="13. Que orientação você daria a um colega receoso?" rows={rows} field="q13_colleague_fearful" />
+      <TextListCard title="14. Como a Libras pode melhorar o atendimento?" rows={rows} field="q14_libras_improves_service" />
+      <TextListCard title="15. Situação para aplicar conhecimentos no trabalho" rows={rows} field="q15_apply_in_workplace" />
+
+      <SectionTitle>Parte IV – Autoavaliação</SectionTitle>
+
+      <ChartCard title="16. Como você avalia sua evolução nesta primeira semana?" data={q16} />
+      <TextListCard title="17. Qual conteúdo foi mais importante para você?" rows={rows} field="q17_most_important_content" />
+      <TextListCard title="18. Qual atividade facilitou mais o seu aprendizado?" rows={rows} field="q18_best_activity" />
+      <ChartCard title="19. Você se sente mais preparado para atender uma pessoa surda?" data={q19} />
+      <TextListCard title="19 (continuação). Explique sua resposta." rows={rows} field="q19_explanation" />
+      <TextListCard title="20. Sugestão para melhorar as próximas aulas." rows={rows} field="q20_suggestion" />
+
+      <SectionTitle>Respostas Individuais</SectionTitle>
+      <div className="overflow-x-auto rounded-xl border border-border">
+        <table className="w-full text-left text-sm">
+          <thead>
+            <tr className="border-b border-border bg-surface-muted">
+              <Th>Nome</Th>
+              <Th>WhatsApp</Th>
+              <Th>Turma</Th>
+              <Th>Q1</Th>
+              <Th>Q2</Th>
+              <Th>Q3</Th>
+              <Th>Q4</Th>
+              <Th>Q5</Th>
+              <Th>Q6</Th>
+              <Th>Q7</Th>
+              <Th>Q8</Th>
+              <Th>Q9</Th>
+              <Th>Q10</Th>
+              <Th>Q11</Th>
+              <Th>Q12</Th>
+              <Th>Q13</Th>
+              <Th>Q14</Th>
+              <Th>Q15</Th>
+              <Th>Q16</Th>
+              <Th>Q17</Th>
+              <Th>Q18</Th>
+              <Th>Q19</Th>
+              <Th>Q19Exp</Th>
+              <Th>Q20</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.length === 0 && (
+              <tr>
+                <Td colSpan={24} className="text-center text-muted-foreground">
+                  Nenhuma resposta ainda.
+                </Td>
+              </tr>
+            )}
+            {rows.map((r) => (
+              <tr key={r.id} className="border-b border-border last:border-0 hover:bg-surface-muted/50">
+                <Td className="max-w-[120px] truncate" title={r.full_name}>{r.full_name}</Td>
+                <Td className="whitespace-nowrap">{r.whatsapp}</Td>
+                <Td>{r.class_code}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q1_why_learn_culture}>{r.q1_why_learn_culture}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q2_libras_is}>{r.q2_libras_is}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q3_communicational_accessibility}>{r.q3_communicational_accessibility}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q4_two_barriers}>{r.q4_two_barriers}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q5_inclusive_environment}>{r.q5_inclusive_environment}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q6_first_contact_attitude}>{r.q6_first_contact_attitude}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q7_facial_expressions_importance}>{r.q7_facial_expressions_importance}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q8_eye_contact_importance}>{r.q8_eye_contact_importance}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q9_learning_depends_on}>{r.q9_learning_depends_on}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q10_what_caught_attention}>{r.q10_what_caught_attention}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q11_how_to_start_service}>{r.q11_how_to_start_service}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q12_forgot_a_signal}>{r.q12_forgot_a_signal}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q13_colleague_fearful}>{r.q13_colleague_fearful}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q14_libras_improves_service}>{r.q14_libras_improves_service}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q15_apply_in_workplace}>{r.q15_apply_in_workplace}</Td>
+                <Td>{r.q16_self_assessment}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q17_most_important_content}>{r.q17_most_important_content}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q18_best_activity}>{r.q18_best_activity}</Td>
+                <Td>{r.q19_feel_prepared}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q19_explanation}>{r.q19_explanation}</Td>
+                <Td className="max-w-[160px] truncate" title={r.q20_suggestion}>{r.q20_suggestion}</Td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="border-b border-border pb-2 text-lg font-bold text-foreground">
+      {children}
+    </h2>
+  );
+}
+
+function TextListCard({
+  title,
+  rows,
+  field,
+}: {
+  title: string;
+  rows: PostClass5Row[];
+  field: keyof PostClass5Row;
+}) {
+  const items = useMemo(
+    () => rows.map((r) => String(r[field] ?? "")).filter(Boolean),
+    [rows, field],
+  );
+  return (
+    <div className="rounded-xl border border-border bg-surface p-4">
+      <h3 className="mb-3 text-sm font-semibold text-foreground">{title}</h3>
+      <TextList items={items} />
+    </div>
+  );
+}
+
+function ChartCard({ title, data }: { title: string; data: { name: string; value: number }[] }) {
+  if (data.length === 0) return <EmptyChart />;
+  return (
+    <div className="rounded-xl border border-border bg-surface p-4">
+      <h3 className="mb-3 text-sm font-semibold text-foreground">{title}</h3>
+      <div className="h-48">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+            <XAxis
+              dataKey="name"
+              tick={{ fontSize: 11 }}
+              angle={-20}
+              textAnchor="end"
+              height={60}
+            />
+            <YAxis allowDecimals={false} />
+            <Tooltip />
+            <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }

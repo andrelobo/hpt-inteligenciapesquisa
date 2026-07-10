@@ -311,6 +311,105 @@ export type Database = {
         }
         Relationships: []
       }
+      student_post_class_5_responses: {
+        Row: {
+          id: string
+          full_name: string
+          whatsapp: string
+          class_code: string
+          class_number: number
+          instructor: string
+          workshop: string
+          application_date: string
+          q1_why_learn_culture: string
+          q2_libras_is: string
+          q3_communicational_accessibility: string
+          q4_two_barriers: string
+          q5_inclusive_environment: string
+          q6_first_contact_attitude: string
+          q7_facial_expressions_importance: string
+          q8_eye_contact_importance: string
+          q9_learning_depends_on: string
+          q10_what_caught_attention: string
+          q11_how_to_start_service: string
+          q12_forgot_a_signal: string
+          q13_colleague_fearful: string
+          q14_libras_improves_service: string
+          q15_apply_in_workplace: string
+          q16_self_assessment: string
+          q17_most_important_content: string
+          q18_best_activity: string
+          q19_feel_prepared: string
+          q19_explanation: string
+          q20_suggestion: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          full_name: string
+          whatsapp: string
+          class_code?: string
+          class_number?: number
+          instructor?: string
+          workshop?: string
+          application_date?: string
+          q1_why_learn_culture: string
+          q2_libras_is: string
+          q3_communicational_accessibility: string
+          q4_two_barriers: string
+          q5_inclusive_environment: string
+          q6_first_contact_attitude: string
+          q7_facial_expressions_importance: string
+          q8_eye_contact_importance: string
+          q9_learning_depends_on: string
+          q10_what_caught_attention: string
+          q11_how_to_start_service: string
+          q12_forgot_a_signal: string
+          q13_colleague_fearful: string
+          q14_libras_improves_service: string
+          q15_apply_in_workplace: string
+          q16_self_assessment: string
+          q17_most_important_content: string
+          q18_best_activity: string
+          q19_feel_prepared: string
+          q19_explanation: string
+          q20_suggestion: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          full_name?: string
+          whatsapp?: string
+          class_code?: string
+          class_number?: number
+          instructor?: string
+          workshop?: string
+          application_date?: string
+          q1_why_learn_culture?: string
+          q2_libras_is?: string
+          q3_communicational_accessibility?: string
+          q4_two_barriers?: string
+          q5_inclusive_environment?: string
+          q6_first_contact_attitude?: string
+          q7_facial_expressions_importance?: string
+          q8_eye_contact_importance?: string
+          q9_learning_depends_on?: string
+          q10_what_caught_attention?: string
+          q11_how_to_start_service?: string
+          q12_forgot_a_signal?: string
+          q13_colleague_fearful?: string
+          q14_libras_improves_service?: string
+          q15_apply_in_workplace?: string
+          q16_self_assessment?: string
+          q17_most_important_content?: string
+          q18_best_activity?: string
+          q19_feel_prepared?: string
+          q19_explanation?: string
+          q20_suggestion?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
       student_pre_course_survey_responses: {
         Row: {
           biggest_difficulty: string

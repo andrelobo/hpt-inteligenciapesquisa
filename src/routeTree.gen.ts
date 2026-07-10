@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PesquisaPosCursoRouteImport } from './routes/pesquisa-pos-curso'
 import { Route as PesquisaInstitucionalRouteImport } from './routes/pesquisa-institucional'
+import { Route as PesquisaAula5RouteImport } from './routes/pesquisa-aula-5'
 import { Route as PesquisaAula4RouteImport } from './routes/pesquisa-aula-4'
 import { Route as PesquisaAula3RouteImport } from './routes/pesquisa-aula-3'
 import { Route as PesquisaAula2RouteImport } from './routes/pesquisa-aula-2'
@@ -28,6 +29,11 @@ const PesquisaPosCursoRoute = PesquisaPosCursoRouteImport.update({
 const PesquisaInstitucionalRoute = PesquisaInstitucionalRouteImport.update({
   id: '/pesquisa-institucional',
   path: '/pesquisa-institucional',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PesquisaAula5Route = PesquisaAula5RouteImport.update({
+  id: '/pesquisa-aula-5',
+  path: '/pesquisa-aula-5',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PesquisaAula4Route = PesquisaAula4RouteImport.update({
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/pesquisa-aula-2': typeof PesquisaAula2Route
   '/pesquisa-aula-3': typeof PesquisaAula3Route
   '/pesquisa-aula-4': typeof PesquisaAula4Route
+  '/pesquisa-aula-5': typeof PesquisaAula5Route
   '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
   '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/pesquisa-aula-2': typeof PesquisaAula2Route
   '/pesquisa-aula-3': typeof PesquisaAula3Route
   '/pesquisa-aula-4': typeof PesquisaAula4Route
+  '/pesquisa-aula-5': typeof PesquisaAula5Route
   '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
   '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   '/pesquisa-aula-2': typeof PesquisaAula2Route
   '/pesquisa-aula-3': typeof PesquisaAula3Route
   '/pesquisa-aula-4': typeof PesquisaAula4Route
+  '/pesquisa-aula-5': typeof PesquisaAula5Route
   '/pesquisa-institucional': typeof PesquisaInstitucionalRoute
   '/pesquisa-pos-curso': typeof PesquisaPosCursoRoute
 }
@@ -119,6 +128,7 @@ export interface FileRouteTypes {
     | '/pesquisa-aula-2'
     | '/pesquisa-aula-3'
     | '/pesquisa-aula-4'
+    | '/pesquisa-aula-5'
     | '/pesquisa-institucional'
     | '/pesquisa-pos-curso'
   fileRoutesByTo: FileRoutesByTo
@@ -131,6 +141,7 @@ export interface FileRouteTypes {
     | '/pesquisa-aula-2'
     | '/pesquisa-aula-3'
     | '/pesquisa-aula-4'
+    | '/pesquisa-aula-5'
     | '/pesquisa-institucional'
     | '/pesquisa-pos-curso'
   id:
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/pesquisa-aula-2'
     | '/pesquisa-aula-3'
     | '/pesquisa-aula-4'
+    | '/pesquisa-aula-5'
     | '/pesquisa-institucional'
     | '/pesquisa-pos-curso'
   fileRoutesById: FileRoutesById
@@ -156,6 +168,7 @@ export interface RootRouteChildren {
   PesquisaAula2Route: typeof PesquisaAula2Route
   PesquisaAula3Route: typeof PesquisaAula3Route
   PesquisaAula4Route: typeof PesquisaAula4Route
+  PesquisaAula5Route: typeof PesquisaAula5Route
   PesquisaInstitucionalRoute: typeof PesquisaInstitucionalRoute
   PesquisaPosCursoRoute: typeof PesquisaPosCursoRoute
 }
@@ -174,6 +187,13 @@ declare module '@tanstack/react-router' {
       path: '/pesquisa-institucional'
       fullPath: '/pesquisa-institucional'
       preLoaderRoute: typeof PesquisaInstitucionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pesquisa-aula-5': {
+      id: '/pesquisa-aula-5'
+      path: '/pesquisa-aula-5'
+      fullPath: '/pesquisa-aula-5'
+      preLoaderRoute: typeof PesquisaAula5RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pesquisa-aula-4': {
@@ -244,6 +264,7 @@ const rootRouteChildren: RootRouteChildren = {
   PesquisaAula2Route: PesquisaAula2Route,
   PesquisaAula3Route: PesquisaAula3Route,
   PesquisaAula4Route: PesquisaAula4Route,
+  PesquisaAula5Route: PesquisaAula5Route,
   PesquisaInstitucionalRoute: PesquisaInstitucionalRoute,
   PesquisaPosCursoRoute: PesquisaPosCursoRoute,
 }
