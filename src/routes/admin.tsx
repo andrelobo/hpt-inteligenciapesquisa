@@ -212,6 +212,9 @@ function AdminPage() {
           <TabBtn active={tab === "post2"} onClick={() => setTab("post2")}>
             Pós-Aula 2 ({postRows.filter((r) => r.class_number === 2).length})
           </TabBtn>
+          <TabBtn active={tab === "post3"} onClick={() => setTab("post3")}>
+            Pós-Aula 3 ({post3Rows.length})
+          </TabBtn>
           <TabBtn active={tab === "guest"} onClick={() => setTab("guest")}>
             Avaliação do Convidado ({guestRows.length})
           </TabBtn>
