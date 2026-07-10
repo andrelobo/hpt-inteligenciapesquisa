@@ -701,6 +701,181 @@ function PostClassPanel({ rows, title }: { rows: PostClassRow[]; title: string }
   );
 }
 
+function PostClass3Panel({ rows }: { rows: PostClass3Row[] }) {
+  const learning = useMemo(() => ratingBreakdown(rows, "learning_rating"), [rows]);
+  const methodology = useMemo(() => ratingBreakdown(rows, "methodology_rating"), [rows]);
+  const parameters = useMemo(() => ratingBreakdown(rows, "parameters_comprehension"), [rows]);
+  const handtalkPresentation = useMemo(
+    () => ratingBreakdown(rows, "handtalk_presentation_rating"),
+    [rows],
+  );
+  const handtalkUsage = useMemo(() => ratingBreakdown(rows, "handtalk_usage_success"), [rows]);
+  const continueUsing = useMemo(() => ratingBreakdown(rows, "continue_using_handtalk"), [rows]);
+  const evolution = useMemo(() => ratingBreakdown(rows, "evolution_perception"), [rows]);
+  const readiness = useMemo(() => ratingBreakdown(rows, "autonomous_research_readiness"), [rows]);
+
+  function exportCSV() {
+    const headers = [
+      "id",
+      "created_at",
+      "class_code",
+      "class_number",
+      "full_name",
+      "whatsapp",
+      "learning_rating",
+      "parameters_comprehension",
+      "objects_activity_contribution",
+      "knew_handtalk",
+      "handtalk_presentation_rating",
+      "handtalk_usefulness",
+      "handtalk_usage_success",
+      "autonomous_research_readiness",
+      "methodology_rating",
+      "main_learning",
+      "handtalk_attention",
+      "continue_using_handtalk",
+      "topic_to_learn",
+      "suggestion",
+      "evolution_perception",
+      "consent",
+    ];
+    downloadCSV(
+      `pos-aula-3-${new Date().toISOString().slice(0, 10)}.csv`,
+      headers,
+      rows as unknown as Record<string, unknown>[],
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-end">
+        <button
+          onClick={exportCSV}
+          className="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary-deep"
+        >
+          Exportar CSV
+        </button>
+      </div>
+
+      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <Kpi label="Total de respostas" value={String(rows.length)} />
+        <Kpi
+          label="% Já conheciam Hand Talk"
+          value={`${pct(rows, (r) => r.knew_handtalk === "Sim")}%`}
+        />
+        <Kpi
+          label="% Preparados p/ pesquisa autônoma"
+          value={`${pct(rows, (r) => r.autonomous_research_readiness === "Sim")}%`}
+        />
+        <Kpi
+          label="% Evolução (Bem/Muito)"
+          value={`${pct(rows, (r) => r.evolution_perception === "Evoluí muito" || r.evolution_perception === "Evoluí bem")}%`}
+        />
+      </section>
+
+      <section className="grid gap-4 lg:grid-cols-2">
+        <Card title="Avaliação do aprendizado">
+          <RatingBars data={learning} />
+        </Card>
+        <Card title="Compreensão dos 5 parâmetros">
+          <RatingBars data={parameters} />
+        </Card>
+        <Card title="Apresentação do Hand Talk">
+          <RatingBars data={handtalkPresentation} />
+        </Card>
+        <Card title="Uso do Hand Talk na aula">
+          <RatingBars data={handtalkUsage} />
+        </Card>
+        <Card title="Metodologia do instrutor">
+          <RatingBars data={methodology} />
+        </Card>
+        <Card title="Preparo para pesquisa autônoma">
+          <RatingBars data={readiness} />
+        </Card>
+        <Card title="Pretende continuar usando o Hand Talk">
+          <RatingBars data={continueUsing} />
+        </Card>
+        <Card title="Percepção de evolução no curso (longitudinal)">
+          <RatingBars data={evolution} />
+        </Card>
+      </section>
+
+      <section className="grid gap-4 lg:grid-cols-2">
+        <Card title="Principal aprendizado">
+          <TextList items={rows.map((r) => r.main_learning).filter(Boolean)} />
+        </Card>
+        <Card title="O que chamou atenção no Hand Talk">
+          <TextList items={rows.map((r) => r.handtalk_attention).filter(Boolean)} />
+        </Card>
+        <Card title="Sinais/temas desejados nas próximas aulas">
+          <TextList items={rows.map((r) => r.topic_to_learn).filter(Boolean)} />
+        </Card>
+        <Card title="Sugestões e comentários">
+          <TextList items={rows.map((r) => r.suggestion ?? "").filter(Boolean)} />
+        </Card>
+      </section>
+
+      <Card title={`Respostas (${rows.length})`}>
+        <div className="-mx-4 overflow-x-auto sm:mx-0">
+          <table className="w-full min-w-[1700px] border-collapse text-left text-sm">
+            <thead className="bg-surface-muted text-xs uppercase tracking-wide text-muted-foreground">
+              <tr>
+                <Th>Data</Th>
+                <Th>Turma</Th>
+                <Th>Nome</Th>
+                <Th>WhatsApp</Th>
+                <Th>Aprendizado</Th>
+                <Th>Parâmetros</Th>
+                <Th>Atividade objetos</Th>
+                <Th>Conhecia Hand Talk</Th>
+                <Th>Apresentação app</Th>
+                <Th>Uso do app</Th>
+                <Th>Utilidade</Th>
+                <Th>Metodologia</Th>
+                <Th>Evolução</Th>
+                <Th>Principal aprendizado</Th>
+                <Th>Tema desejado</Th>
+                <Th>Sugestão</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.id} className="border-t border-border align-top">
+                  <Td>{new Date(r.created_at).toLocaleString("pt-BR")}</Td>
+                  <Td className="font-semibold text-primary">{r.class_code}</Td>
+                  <Td>{r.full_name}</Td>
+                  <Td>{r.whatsapp}</Td>
+                  <Td>{r.learning_rating}</Td>
+                  <Td>{r.parameters_comprehension}</Td>
+                  <Td>{r.objects_activity_contribution}</Td>
+                  <Td>{r.knew_handtalk}</Td>
+                  <Td>{r.handtalk_presentation_rating}</Td>
+                  <Td>{r.handtalk_usage_success}</Td>
+                  <Td>{r.handtalk_usefulness}</Td>
+                  <Td>{r.methodology_rating}</Td>
+                  <Td className="font-semibold">{r.evolution_perception}</Td>
+                  <Td className="max-w-[240px] whitespace-pre-wrap">{r.main_learning}</Td>
+                  <Td className="max-w-[240px] whitespace-pre-wrap">{r.topic_to_learn}</Td>
+                  <Td className="max-w-[240px] whitespace-pre-wrap">{r.suggestion ?? "—"}</Td>
+                </tr>
+              ))}
+              {rows.length === 0 && (
+                <tr>
+                  <td colSpan={16} className="py-6 text-center text-sm text-muted-foreground">
+                    Nenhuma resposta ainda.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+
+
 function GuestPanel({ rows }: { rows: GuestRow[] }) {
   const experience = useMemo(() => ratingBreakdown(rows, "experience_rating"), [rows]);
   const methodology = useMemo(() => ratingBreakdown(rows, "methodology_rating"), [rows]);
