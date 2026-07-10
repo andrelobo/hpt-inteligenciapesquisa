@@ -1,5 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "@/integrations/supabase/types";
+
+const NEW_SUPABASE_URL = "https://zkitteyohucxeylpbjlg.supabase.co";
+const NEW_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpraXR0ZXlvaHVjeGV5bHBiamxnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MzY5MTU1NSwiZXhwIjoyMDk5MjY3NTU1fQ.uno451h36IzT_KFXnkQ1gKzOQuWPJ0qPo-FXeaZPMxY";
 
 export const getSurveyResponses = createServerFn({ method: "POST" })
   .inputValidator((input) => z.object({ password: z.string() }).parse(input))
@@ -12,6 +17,8 @@ export const getSurveyResponses = createServerFn({ method: "POST" })
       throw new Error("Senha incorreta.");
     }
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const supabaseNewAdmin = createClient<Database>(NEW_SUPABASE_URL, NEW_SERVICE_ROLE_KEY);
 
     const [preCourse, postClass, postClass3, postClass4, guest] = await Promise.all([
       supabaseAdmin
@@ -26,7 +33,7 @@ export const getSurveyResponses = createServerFn({ method: "POST" })
         .from("student_post_class_3_responses")
         .select("*")
         .order("created_at", { ascending: false }),
-      supabaseAdmin
+      supabaseNewAdmin
         .from("student_post_class_4_responses")
         .select("*")
         .order("created_at", { ascending: false }),

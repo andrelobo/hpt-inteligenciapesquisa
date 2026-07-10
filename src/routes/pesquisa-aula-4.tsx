@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageShell } from "@/components/hpt/Layout";
-import { supabase } from "@/integrations/supabase/client";
+import { supabaseNew } from "@/lib/supabase-new";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -165,7 +165,7 @@ function PosAula4Page() {
       }, 400);
       return;
     }
-    const { error } = await supabase
+    const { error } = await supabaseNew
       .from("student_post_class_4_responses")
       .insert({
         full_name: form.full_name,
