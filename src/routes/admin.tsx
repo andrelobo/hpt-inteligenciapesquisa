@@ -95,9 +95,37 @@ type GuestRow = {
   consent: boolean;
 };
 
+type PostClass3Row = {
+  id: string;
+  created_at: string;
+  class_code: string;
+  class_number: number;
+  full_name: string;
+  whatsapp: string;
+  instructor: string;
+  workshop: string;
+  application_date: string;
+  learning_rating: string;
+  parameters_comprehension: string;
+  objects_activity_contribution: string;
+  knew_handtalk: string;
+  handtalk_presentation_rating: string;
+  handtalk_usefulness: string;
+  handtalk_usage_success: string;
+  autonomous_research_readiness: string;
+  methodology_rating: string;
+  main_learning: string;
+  handtalk_attention: string;
+  continue_using_handtalk: string;
+  topic_to_learn: string;
+  suggestion: string | null;
+  evolution_perception: string;
+  consent: boolean;
+};
+
 const PIE_COLORS = ["#1e3a8a", "#3b82f6", "#93c5fd", "#60a5fa", "#1d4ed8"];
 
-type TabKey = "pre" | "post1" | "post2" | "guest";
+type TabKey = "pre" | "post1" | "post2" | "post3" | "guest";
 
 function AdminPage() {
   const [password, setPassword] = useState("");
